@@ -7,9 +7,15 @@ namespace NewPayDataTransformer.Engine
 {
     public class Core
     {
+        MockEmployeeDb mockEmployeeDb;
         public void Execute()
         {
+            loadConfig();
             loadEmployees();
+        }
+
+        private void loadConfig()
+        {
 
         }
 
@@ -19,6 +25,9 @@ namespace NewPayDataTransformer.Engine
             EmployeeLoader loader = new EmployeeLoader(employeefile);
             EmployeeValidator validator = new EmployeeValidator(loader);
             validator.Validate();
+            mockEmployeeDb = new MockEmployeeDb(validator.GetEmployees(new DateTime(),"GS"));
         }
+
+        
     }//end class
 }//end namespace

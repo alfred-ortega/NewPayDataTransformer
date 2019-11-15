@@ -8,9 +8,11 @@ namespace NewPayDataTransformer.Model
 
         public string FullZipCode { get {return string.Format("{0}-{1}",ZipCode,ZipCode2);}}
 
+        public string MockSSN {get {return  "1001" + getMockId(this.Id);}}
+
         public MockEmployee GetMockedEmployee()
         {
-            return new MockEmployee(this.Id,this.PayPeriodEndDate,this.Agency, this.DateOfBirth);
+            return new MockEmployee(getMockId(this.Id), this.PayPeriodEndDate,this.Agency, this.DateOfBirth);
         }
 
         public int CompareTo(Employee other)
@@ -55,6 +57,15 @@ namespace NewPayDataTransformer.Model
             this.PayPeriodEndDate = payPeriodEndDate;            
         }
 
-        
+
+        private string getMockId(int id)
+        {
+            string retval = id.ToString();
+            while(retval.Length < 5)
+            {
+                retval = "0" + retval;
+            }
+            return retval;
+        }        
     }//end class
 }//end namespace

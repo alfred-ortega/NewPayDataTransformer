@@ -23,7 +23,11 @@ namespace  NewPayDataTransformer.Engine
         {
             setExistingEmployees();
             addOrUpdateEmployees();
+        }
 
+        public List<Employee> GetEmployees(DateTime payPeriodEndDate, string agency)
+        {
+            return context.Employee.Where(e => e.PayPeriodEndDate == payPeriodEndDate && e.Agency == agency).ToList();
 
         }
 

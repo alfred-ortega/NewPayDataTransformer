@@ -40,8 +40,7 @@ namespace NewPayDataTransformer.Engine
                 }
                 catch (System.Exception x)
                 {
-                    
-                    throw;
+                    throw x;
                 }
 
 
