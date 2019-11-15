@@ -4,6 +4,10 @@
 .DS_Store
 Thumbs.db
 ######################
+# Project Specific Files
+######################
+ProjectNotes.txt
+######################
 # IDE
 ######################
 .vscode/
