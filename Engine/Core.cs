@@ -13,6 +13,17 @@ namespace NewPayDataTransformer.Engine
         {
             Console.WriteLine(Config.Settings.EmployeeFile);
             loadEmployees();
+            //loadEFT();
+            //loadNonEFT();
+            //loadMappingFiles();
+            if(Config.Settings.Action == "Mask")
+            {
+                //executeMasking();
+            }
+            else
+            {
+                //executeUnmasking();
+            }
             string ssn = "574942760";
             string mockSSN = mockEmployeeDb.GetMockSSN(ssn);
             Console.WriteLine(string.Format("{0} has the mock SSN of {1}",ssn,mockSSN));
@@ -24,7 +35,7 @@ namespace NewPayDataTransformer.Engine
             EmployeeLoader loader = new EmployeeLoader(employeefile);
             EmployeeValidator validator = new EmployeeValidator(loader);
             validator.Validate();
-            mockEmployeeDb = new MockEmployeeDb(validator.GetEmployees(new DateTime(),"GS"));
+            mockEmployeeDb = new MockEmployeeDb(validator.GetEmployees(new DateTime(),Config.Settings.Agency));
         }
 
         

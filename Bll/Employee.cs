@@ -20,9 +20,6 @@ namespace NewPayDataTransformer.Model
             return this.Ssn.CompareTo(other.Ssn);
         }
 
-        public Employee()
-        {
-        }
 
         public Employee(string agency
                        ,string ssn

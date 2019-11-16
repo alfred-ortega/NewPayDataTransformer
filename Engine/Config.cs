@@ -37,6 +37,7 @@ namespace NewPayDataTransformer.Engine
 
         public string ConnectionString { get; set; }
         public string Agency { get; set; }
+        public string Action { get; set; }
         public string PayPeriodEndDate { get; set; }
         public string EmployeeFile
         {
