@@ -21,7 +21,7 @@ namespace NewPayDataTransformer.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseMySQL("Server=172.21.17.100;Database=newpay;Uid=aortega;Pwd=Passw0rd$;");
+                optionsBuilder.UseLazyLoadingProxies().UseMySQL(NewPayDataTransformer.Engine.Config.Settings.ConnectionString);                
             }
         }
 

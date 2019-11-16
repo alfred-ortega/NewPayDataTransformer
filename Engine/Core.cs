@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
+using Newtonsoft.Json;
 
 namespace NewPayDataTransformer.Engine
 {
@@ -10,18 +11,16 @@ namespace NewPayDataTransformer.Engine
         MockEmployeeDb mockEmployeeDb;
         public void Execute()
         {
-            loadConfig();
+            Console.WriteLine(Config.Settings.EmployeeFile);
             loadEmployees();
-        }
-
-        private void loadConfig()
-        {
-
+            string ssn = "574942760";
+            string mockSSN = mockEmployeeDb.GetMockSSN(ssn);
+            Console.WriteLine(string.Format("{0} has the mock SSN of {1}",ssn,mockSSN));
         }
 
         private void loadEmployees()
         {
-            string employeefile = @"D:\Shared\NEWPAY\PAR_OUTBOUND\16FEB2019\PDW_EDS_MASTER_GS16FEB2019.dat";
+            string employeefile = Config.Settings.EmployeeFile;
             EmployeeLoader loader = new EmployeeLoader(employeefile);
             EmployeeValidator validator = new EmployeeValidator(loader);
             validator.Validate();

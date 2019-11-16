@@ -7,7 +7,6 @@ namespace  NewPayDataTransformer.Engine
 {
     public class EmployeeValidator
     {
-        EmployeeLoader employeeLoader;
         NewPayContext context;
         List<Employee> existingEmployees;
         List<TempEmployee> newEmployees;
