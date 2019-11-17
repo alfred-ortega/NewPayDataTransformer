@@ -2,7 +2,7 @@ using System;
 
 namespace NewPayDataTransformer.Model
 {
-    public partial class Employee : IEmployee, IComparable<Employee>
+    public partial class Employee : BaseMockObject, IEmployee, IComparable<Employee>
     {
         public string FullName {get {return string.Format("{0}, {1} {2}",this.LastName,this.FirstName, this.MiddleName ).Trim();}}
 
@@ -12,7 +12,7 @@ namespace NewPayDataTransformer.Model
 
         public MockEmployee GetMockedEmployee()
         {
-            return new MockEmployee(getMockId(this.Id), this.PayPeriodEndDate,this.Agency, this.DateOfBirth);
+            return new MockEmployee(this);
         }
 
         public int CompareTo(Employee other)
@@ -57,12 +57,7 @@ namespace NewPayDataTransformer.Model
 
         private string getMockId(int id)
         {
-            string retval = id.ToString();
-            while(retval.Length < 5)
-            {
-                retval = "0" + retval;
-            }
-            return retval;
+            return LPad(id.ToString(),5);
         }        
     }//end class
 }//end namespace

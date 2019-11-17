@@ -26,6 +26,8 @@ namespace NewPayDataTransformer.Engine
 
 
         private string employeeFile;
+        private string eftFile;
+        private string nonEftFile;
         private string mappingDirectory;
         private string filesForMaskingDirectory;
         private string maskedFilesDirectory;
@@ -44,6 +46,20 @@ namespace NewPayDataTransformer.Engine
             get { return string.Format(employeeFile,Agency,PayPeriodEndDate); }
             set { employeeFile = value; }
         }
+
+        public string EftFile
+        {
+            get { return eftFile; }
+            set { eftFile = value; }
+        }
+
+        public string NonEftFile
+        {
+            get { return nonEftFile; }
+            set { nonEftFile = value; }
+        }
+        
+        
         
         public string MappingDirectory
         {

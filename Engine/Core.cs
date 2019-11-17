@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
 using Newtonsoft.Json;
@@ -15,6 +16,7 @@ namespace NewPayDataTransformer.Engine
             loadEmployees();
             //loadEFT();
             //loadNonEFT();
+            loadUpdatedEmployees();
             //loadMappingFiles();
             if(Config.Settings.Action == "Mask")
             {
@@ -35,7 +37,14 @@ namespace NewPayDataTransformer.Engine
             EmployeeLoader loader = new EmployeeLoader(employeefile);
             EmployeeValidator validator = new EmployeeValidator(loader);
             validator.Validate();
-            mockEmployeeDb = new MockEmployeeDb(validator.GetEmployees(new DateTime(),Config.Settings.Agency));
+        }
+
+        private void loadUpdatedEmployees()
+        {
+            NewPayContext context = new NewPayContext();
+
+            mockEmployeeDb = new MockEmployeeDb( context.Employee.Where(e => e.Agency == Config.Settings.Agency).ToList()  );
+
         }
 
         

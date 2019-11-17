@@ -15,7 +15,7 @@ namespace NewPayDataTransformer.Model
         public string ZipCode { get; set; }
         public string ZipCode2 { get; set; }
         public string HomePhone { get; set; }
-        public DateTime? PayPeriodEndDate { get; set; }
+        public DateTime PayPeriodEndDate { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

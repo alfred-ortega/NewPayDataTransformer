@@ -10,7 +10,7 @@ namespace NewPayDataTransformer.Model
         public string RecipientName { get; set; }
         public string RoutingNumber { get; set; }
         public string AccountNumber { get; set; }
-        public DateTime? PayPeriodEndDate { get; set; }
+        public DateTime PayPeriodEndDate { get; set; }
 
         public virtual Employee Employee { get; set; }
     }
