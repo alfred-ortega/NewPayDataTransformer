@@ -8,6 +8,7 @@ namespace NewPayDataTransformer.Model
         public Employee()
         {
             Employeeeft = new HashSet<Employeeeft>();
+            Employeeeftaddress = new HashSet<Employeeeftaddress>();
             Employeenoneft = new HashSet<Employeenoneft>();
         }
 
@@ -29,6 +30,7 @@ namespace NewPayDataTransformer.Model
         public DateTime PayPeriodEndDate { get; set; }
 
         public virtual ICollection<Employeeeft> Employeeeft { get; set; }
+        public virtual ICollection<Employeeeftaddress> Employeeeftaddress { get; set; }
         public virtual ICollection<Employeenoneft> Employeenoneft { get; set; }
     }
 }

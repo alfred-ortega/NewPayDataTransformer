@@ -13,12 +13,12 @@ namespace NewPayDataTransformer.Engine
         public MockEmployeeDb(List<Employee> emps)
         {
             employees = emps;
-            SSNMapping = new SortedList<string, string>();
             setMapping();
         }
 
         private void setMapping()
         {
+            SSNMapping = new SortedList<string, string>();
             foreach(Employee emp in employees)
             {
                 SSNMapping.Add(emp.Ssn,emp.MockSSN);
@@ -46,6 +46,11 @@ namespace NewPayDataTransformer.Engine
             return emp;
         }
 
+        public Employee GetEmployeeBySSN(string Ssn, string agency)
+        {
+            Employee emp = employees.Where(e => e.Ssn == Ssn && e.Agency == agency).Single();
+            return emp;
+        }
 
 
 

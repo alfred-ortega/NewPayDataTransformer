@@ -8,9 +8,9 @@ namespace NewPayDataTransformer
     {
         static void Main(string[] args)
         {
-            x();
-//            Core core = new Core();
-//            core.Execute();
+//            x();
+            Core core = new Core();
+            core.Execute();
         }
 
         static void x()

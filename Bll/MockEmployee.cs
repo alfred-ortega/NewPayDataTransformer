@@ -48,7 +48,7 @@ namespace NewPayDataTransformer.Model
             nonEftRecords = new List<MockEmployeeNonEft>();
             foreach(Employeeeft eft in employee.Employeeeft)
             {
-                MockEmployeeEft m = new MockEmployeeEft(eft.Id,eft.PayPeriodEndDate);
+                MockEmployeeEft m = new MockEmployeeEft(eft.Id,eft.PayPeriodEndDate,employee.MockSSN);
                 eftRecords.Add(m);
             }
             foreach(Employeenoneft noneft in employee.Employeenoneft)

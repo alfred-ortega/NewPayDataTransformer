@@ -17,13 +17,14 @@ namespace NewPayDataTransformer.Model
 
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Employeeeft> Employeeeft { get; set; }
+        public virtual DbSet<Employeeeftaddress> Employeeeftaddress { get; set; }
         public virtual DbSet<Employeenoneft> Employeenoneft { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseMySQL(NewPayDataTransformer.Engine.Config.Settings.ConnectionString);                
+                optionsBuilder.UseLazyLoadingProxies().UseMySQL(NewPayDataTransformer.Engine.Config.Settings.ConnectionString);
             }
         }
 
@@ -119,7 +120,7 @@ namespace NewPayDataTransformer.Model
                 entity.Property(e => e.EmployeeId).HasColumnType("int(10)");
 
                 entity.Property(e => e.RecipientName)
-                    .HasMaxLength(7)
+                    .HasMaxLength(30)
                     .IsUnicode(false);
 
                 entity.Property(e => e.RoutingNumber)
@@ -130,6 +131,39 @@ namespace NewPayDataTransformer.Model
                     .WithMany(p => p.Employeeeft)
                     .HasForeignKey(d => d.EmployeeId)
                     .HasConstraintName("np_EmployeeEft_Employee");
+            });
+
+            modelBuilder.Entity<Employeeeftaddress>(entity =>
+            {
+                entity.ToTable("employeeeftaddress", "newpay");
+
+                entity.HasIndex(e => e.EmployeeId)
+                    .HasName("np_EmployeeEftAddress_Employee");
+
+                entity.Property(e => e.Id).HasColumnType("int(10)");
+
+                entity.Property(e => e.AccountNumber)
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.BankName)
+                    .HasMaxLength(7)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.BankStreetAddress)
+                    .HasMaxLength(75)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.BankStreetAddress2)
+                    .HasMaxLength(75)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EmployeeId).HasColumnType("int(10)");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Employeeeftaddress)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .HasConstraintName("np_EmployeeEftAddress_Employee");
             });
 
             modelBuilder.Entity<Employeenoneft>(entity =>

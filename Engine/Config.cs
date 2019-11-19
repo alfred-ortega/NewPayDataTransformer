@@ -26,16 +26,14 @@ namespace NewPayDataTransformer.Engine
 
 
         private string employeeFile;
-        private string eftFile;
+        private string eftPaymentFile;
+        private string eftAddressFile;
         private string nonEftFile;
         private string mappingDirectory;
         private string filesForMaskingDirectory;
         private string maskedFilesDirectory;
         private string filesForUnmaskingDirectory;
         private string unmaskedFilesDirectory;
-        private string logDirectory;
-
-
 
         public string ConnectionString { get; set; }
         public string Agency { get; set; }
@@ -47,15 +45,24 @@ namespace NewPayDataTransformer.Engine
             set { employeeFile = value; }
         }
 
-        public string EftFile
+        public string EftPaymentFile
         {
-            get { return eftFile; }
-            set { eftFile = value; }
+            get { return string.Format(eftPaymentFile,Agency,PayPeriodEndDate); }
+            set { eftPaymentFile = value; }
         }
+
+        //EftAddressFile
+        public string EftAddressFile
+        {
+            get { return eftAddressFile; }
+            set { eftAddressFile = value; }
+        }
+        
+
 
         public string NonEftFile
         {
-            get { return nonEftFile; }
+            get { return string.Format(nonEftFile,Agency,PayPeriodEndDate); }
             set { nonEftFile = value; }
         }
         
@@ -92,11 +99,7 @@ namespace NewPayDataTransformer.Engine
             set { unmaskedFilesDirectory = value; }
         }
 
-        public string LogDirectory
-        {
-            get { return string.Format(logDirectory,Agency,PayPeriodEndDate); }
-            set { logDirectory = value; }
-        }
+        public string LogDirectory {get ; set;}
         
         
 
