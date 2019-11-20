@@ -8,7 +8,7 @@ namespace NewPayDataTransformer.Engine
     public class MockEmployeeDb
     {
         List<Employee> employees;
-        SortedList<string,string> SSNMapping;
+        Dictionary<string,string> SSNMapping;
 
         public MockEmployeeDb(List<Employee> emps)
         {
@@ -18,11 +18,14 @@ namespace NewPayDataTransformer.Engine
 
         private void setMapping()
         {
-            SSNMapping = new SortedList<string, string>();
+            SSNMapping = new Dictionary<string, string>();
             foreach(Employee emp in employees)
             {
                 SSNMapping.Add(emp.Ssn,emp.MockSSN);
             }
+            SSNMapping.OrderBy(i => i.Key);
+            //
+            //
         }
 
         public string GetSSN(string mockSSN)

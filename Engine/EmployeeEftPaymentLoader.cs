@@ -10,6 +10,7 @@ namespace NewPayDataTransformer.Engine
     {
 
         List<Employeeeft> eftRecords;
+        StringBuilder log = new StringBuilder();
 
         string newFileName = string.Empty;
         string[] rows;
@@ -40,29 +41,51 @@ namespace NewPayDataTransformer.Engine
             newFileName = eftFile.Replace(Config.Settings.FilesForMaskingDirectory,Config.Settings.MaskedFilesDirectory);
         }//end setRows
 
+        private void recordtime(DateTime start, DateTime end, string action)
+        {
+            TimeSpan ts = end.Subtract(start);
+            log.AppendLine(string.Format("{0},{1}",action,ts.TotalMilliseconds));
+        }
+
         void parseRows(MockEmployeeDb db)
         {
             Logger.Log.Record("Begin EmployeeEftPaymentLoader.parseRows");
+
             NewPayContext context = new NewPayContext();
             int i = 0;
             foreach(string row in rows)
             {
+                DateTime start = DateTime.Now;
                 string[] data = row.Split("~");
+                DateTime end = DateTime.Now;
+                recordtime(start,end,"Split Row");
                 Employeeeft e = new Employeeeft();
+                start = DateTime.Now;
                 e.AccountNumber = data[9];
                 e.RoutingNumber = data[21];
                 e.RecipientName = data[15];
                 e.PayPeriodEndDate = DateTime.Parse(data[32]);
+                end = DateTime.Now;
+                recordtime(start,end,"Parse data elements");
+                start = DateTime.Now;
                 string mockSSN = db.GetMockSSN(data[1]);
+                end = DateTime.Now;
+                recordtime(start,end,"Get Mock SSN");
 //                Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
                 int empId = int.Parse(mockSSN.Substring(4));
                 e.EmployeeId = empId;
                 try
                 {
+                    start = DateTime.Now;
                     context.Add(e);
+                    recordtime(start,DateTime.Now,"Add EmployeeEft to data context");
+                    start = DateTime.Now;
                     context.SaveChanges();
+                    recordtime(start,DateTime.Now,"Save changes to database");
                     MockEmployeeEft me = new MockEmployeeEft(i,e.PayPeriodEndDate,mockSSN);
+                    start = DateTime.Now;
                     createNewLine(data,me);
+                    recordtime(start,DateTime.Now,"Created new line in file");
                 }
                 catch (System.Exception x)
                 {
@@ -71,6 +94,12 @@ namespace NewPayDataTransformer.Engine
                 i++;
                 if(i % 100 == 0)
                     Logger.Log.Record(i.ToString() + " records parsed");
+
+                if(i % 1000 == 0)
+                {
+                    File.WriteAllText(Config.Settings.LogDirectory + "ts.csv",log.ToString());
+                    Console.WriteLine("done");
+                }    
 
             }
             Logger.Log.Record("End EmployeeEftPaymentLoader.parseRows");            
