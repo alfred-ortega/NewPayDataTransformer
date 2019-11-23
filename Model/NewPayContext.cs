@@ -34,7 +34,7 @@ namespace NewPayDataTransformer.Model
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.ToTable("employee", "newpay");
+                entity.ToTable("employee", "newpaydb");
 
                 entity.HasIndex(e => new { e.Agency, e.Ssn })
                     .HasName("employee_unique")
@@ -49,7 +49,8 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.City)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
@@ -65,9 +66,8 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.MiddleName)
                     .HasMaxLength(35)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PayPeriodEndDate).HasColumnType("date");
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.Ssn)
                     .IsRequired()
@@ -77,36 +77,43 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.State)
                     .HasMaxLength(2)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.StreetAddress)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.StreetAddress2)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.StreetAddress3)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.Suffix)
                     .HasMaxLength(7)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.ZipCode)
                     .HasMaxLength(5)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.ZipCode2)
                     .HasMaxLength(4)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
             });
 
             modelBuilder.Entity<Employeeeft>(entity =>
             {
-                entity.ToTable("employeeeft", "newpay");
+                entity.ToTable("employeeeft", "newpaydb");
 
                 entity.HasIndex(e => e.EmployeeId)
                     .HasName("np_EmployeeEft_Employee");
@@ -115,17 +122,20 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.AccountNumber)
                     .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.EmployeeId).HasColumnType("int(10)");
 
                 entity.Property(e => e.RecipientName)
                     .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.RoutingNumber)
                     .HasMaxLength(9)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Employeeeft)
@@ -135,7 +145,7 @@ namespace NewPayDataTransformer.Model
 
             modelBuilder.Entity<Employeeeftaddress>(entity =>
             {
-                entity.ToTable("employeeeftaddress", "newpay");
+                entity.ToTable("employeeeftaddress", "newpaydb");
 
                 entity.HasIndex(e => e.EmployeeId)
                     .HasName("np_EmployeeEftAddress_Employee");
@@ -144,19 +154,23 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.AccountNumber)
                     .HasMaxLength(30)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.BankName)
-                    .HasMaxLength(7)
-                    .IsUnicode(false);
+                    .HasMaxLength(35)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.BankStreetAddress)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.BankStreetAddress2)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.EmployeeId).HasColumnType("int(10)");
 
@@ -168,7 +182,7 @@ namespace NewPayDataTransformer.Model
 
             modelBuilder.Entity<Employeenoneft>(entity =>
             {
-                entity.ToTable("employeenoneft", "newpay");
+                entity.ToTable("employeenoneft", "newpaydb");
 
                 entity.HasIndex(e => new { e.EmployeeId, e.RecipientName, e.PayPeriodEndDate })
                     .HasName("employeenoneft_unique")
@@ -178,37 +192,45 @@ namespace NewPayDataTransformer.Model
 
                 entity.Property(e => e.City)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.EmployeeId).HasColumnType("int(10)");
 
                 entity.Property(e => e.HomePhone)
-                    .HasMaxLength(4)
-                    .IsUnicode(false);
+                    .HasMaxLength(12)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.RecipientName)
-                    .HasMaxLength(7)
-                    .IsUnicode(false);
+                    .HasMaxLength(75)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.State)
                     .HasMaxLength(2)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.StreetAddress)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.StreetAddress2)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.ZipCode)
                     .HasMaxLength(5)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.Property(e => e.ZipCode2)
                     .HasMaxLength(4)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("NULL");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Employeenoneft)

@@ -54,7 +54,7 @@ namespace NewPayDataTransformer.Engine
         //EftAddressFile
         public string EftAddressFile
         {
-            get { return eftAddressFile; }
+            get { return string.Format(eftAddressFile,Agency,PayPeriodEndDate); }
             set { eftAddressFile = value; }
         }
         

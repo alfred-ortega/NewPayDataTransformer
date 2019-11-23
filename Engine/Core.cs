@@ -14,11 +14,11 @@ namespace NewPayDataTransformer.Engine
         public void Execute()
         {
            
-//            loadEmployees();
+            loadEmployees();
             loadUpdatedEmployees();
-
             loadEmployeeEftPayments();
-            //loadNonEFT();
+            loadEmployeeEftAddresses();
+            loadNonEFT();
             //loadMappingFiles();
             if(Config.Settings.Action == "Mask")
             {
@@ -45,6 +45,7 @@ namespace NewPayDataTransformer.Engine
 
         private void loadUpdatedEmployees()
         {
+            
             NewPayContext context = new NewPayContext();
             Logger.Log.Record("Begin Core.loadUpdatedEmployees");
             List<Employee> emps = context.Employee.Where(e => e.Agency == Config.Settings.Agency).ToList();
@@ -59,6 +60,22 @@ namespace NewPayDataTransformer.Engine
             Logger.Log.Record("Begin Core.loadEmployeeEftPayments");
             EmployeeEftPaymentLoader eftLoader = new EmployeeEftPaymentLoader(mockEmployeeDb);
             Logger.Log.Record("End Core.loadEmployeeEftPayments");
+        }
+
+        private void loadEmployeeEftAddresses()
+        {
+            //EmployeeEftAddressLoader
+            Logger.Log.Record("Begin Core.loadEmployeeEftAddresses");
+            EmployeeEftAddressLoader eftLoader = new EmployeeEftAddressLoader(mockEmployeeDb);
+            Logger.Log.Record("End Core.loadEmployeeEftAddresses");
+        }
+
+        private void loadNonEFT()
+        {//EmployeeNonEftPaymentLoader
+            Logger.Log.Record("Begin Core.EmployeeNonEftPaymentLoader");
+            EmployeeNonEftPaymentLoader eftLoader = new EmployeeNonEftPaymentLoader(mockEmployeeDb);
+            Logger.Log.Record("End Core.EmployeeNonEftPaymentLoader");
+
         }
         
     }//end class

@@ -15,10 +15,13 @@ namespace NewPayDataTransformer.Model
         public string HomePhone { get {return "8161" + LPad(Id.ToString(),6);}  }
         public DateTime PayPeriodEndDate { get; private set; }
 
-        public MockEmployeeNonEft(int id, DateTime payPeriodEndDate)
+        public string MockSsn {get;set;}
+
+        public MockEmployeeNonEft(int id, DateTime payPeriodEndDate, string mockSsn)
         {
             Id = id;
             PayPeriodEndDate = payPeriodEndDate;
+            MockSsn = mockSsn;
         }
 
     }//end class

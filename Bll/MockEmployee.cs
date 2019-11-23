@@ -22,17 +22,17 @@ namespace NewPayDataTransformer.Model
         public string ZipCode2 {get; private set;}
         public DateTime PayPeriodEndDate {get; private set;}
 
-        private List<MockEmployeeEft> eftRecords;
-        public List<MockEmployeeEft> EftRecords
-        {
-            get { return eftRecords; }
-        }
+        // private List<MockEmployeeEft> eftRecords;
+        // public List<MockEmployeeEft> EftRecords
+        // {
+        //     get { return eftRecords; }
+        // }
 
-        private List<MockEmployeeNonEft> nonEftRecords;
-        public List<MockEmployeeNonEft> NonEftRecords
-        {
-            get { return nonEftRecords; }
-        }
+        // private List<MockEmployeeNonEft> nonEftRecords;
+        // public List<MockEmployeeNonEft> NonEftRecords
+        // {
+        //     get { return nonEftRecords; }
+        // }
         
         
 
@@ -44,18 +44,19 @@ namespace NewPayDataTransformer.Model
         public MockEmployee(Employee employee)
         {
             setInitValues(employee.Id.ToString(), employee.PayPeriodEndDate, employee.Agency, employee.DateOfBirth);
-            eftRecords = new List<MockEmployeeEft>();
-            nonEftRecords = new List<MockEmployeeNonEft>();
-            foreach(Employeeeft eft in employee.Employeeeft)
-            {
-                MockEmployeeEft m = new MockEmployeeEft(eft.Id,eft.PayPeriodEndDate,employee.MockSSN);
-                eftRecords.Add(m);
-            }
-            foreach(Employeenoneft noneft in employee.Employeenoneft)
-            {
-                MockEmployeeNonEft m = new MockEmployeeNonEft(noneft.Id, noneft.PayPeriodEndDate);
-                nonEftRecords.Add(m);
-            }
+            //eftRecords = new List<MockEmployeeEft>();
+            //nonEftRecords = new List<MockEmployeeNonEft>();
+            // foreach(Employeeeft eft in employee.Employeeeft)
+            // {
+            //     MockEmployeeEft m = new MockEmployeeEft(eft.Id,eft.PayPeriodEndDate,employee.MockSSN);
+            //     eftRecords.Add(m);
+            // }
+            // foreach(Employeenoneft noneft in employee.Employeenoneft)
+            // {
+            //     MockEmployeeNonEft m = new MockEmployeeNonEft(noneft.Id, noneft.PayPeriodEndDate, employee.MockSSN);
+            //     nonEftRecords.Add(m);
+            // }
+
         }
 
 

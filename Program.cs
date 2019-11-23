@@ -1,17 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NewPayDataTransformer.Engine;
+using NewPayDataTransformer.Model;
+
 namespace NewPayDataTransformer
 {
     class Program
     {
         static void Main(string[] args)
         {
-//            x();
+            //y();
             Core core = new Core();
             core.Execute();
+
+
+            
+
         }
+
+        static void y()
+        {
+            using(NewPayContext context = new NewPayContext())
+            {
+                Employee emp = new Employee();
+                emp.FirstName = "Alfred";
+                emp.LastName = "Ortega";
+                emp.Suffix = "III";
+                emp.StreetAddress = "2821 NE Marywood Lane";
+                emp.City = "Lees Summit";
+                emp.State = "MO";
+                emp.ZipCode = "64086";
+                emp.Ssn = "574942760";
+                emp.PayPeriodEndDate = new DateTime(2019,11,9);
+                emp.Agency="GS";
+                emp.DateOfBirth = new DateTime(1974,6,30);
+                context.Employee.Add(emp);
+                context.SaveChanges();
+            } 
+
+        }
+    
 
         static void x()
         {

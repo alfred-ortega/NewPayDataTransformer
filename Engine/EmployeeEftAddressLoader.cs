@@ -6,29 +6,24 @@ using NewPayDataTransformer.Model;
 
 namespace NewPayDataTransformer.Engine
 {
-    public class EmployeeEftPaymentLoader
+    public class EmployeeEftAddressLoader
     {
-
-        List<Employeeeft> employeeEfts;
+        List<Employeeeftaddress> employeeeftaddresses;
         StringBuilder log = new StringBuilder();
-
         string newFileName = string.Empty;
         string[] rows;
         List<string> newRows;
 
-
-
-        public EmployeeEftPaymentLoader(MockEmployeeDb db)
+        public EmployeeEftAddressLoader(MockEmployeeDb db)
         {
-            //PDW_EDS_EFT_PAYMT
-            Logger.Log.Record("Instantiation of EmployeeEftPaymentLoader");
-            setRows(Config.Settings.EftPaymentFile);
+            //PDW_EDS_EFT_ADDR
+            Logger.Log.Record("Instantiation of EmployeeEftAddressLoader");
+            setRows(Config.Settings.EftAddressFile);
             Logger.Log.Record(rows.Length + " rows found");
-            employeeEfts = new List<Employeeeft>();
+            employeeeftaddresses = new List<Employeeeftaddress>();
             newRows = new List<string>();
             parseRows(db);
             writeNewFile();
-
 
         }
 
@@ -43,19 +38,21 @@ namespace NewPayDataTransformer.Engine
 
         void parseRows(MockEmployeeDb db)
         {
-            Logger.Log.Record("Begin EmployeeEftPaymentLoader.parseRows");
+            Logger.Log.Record("Begin EmployeeEftAddressLoader.parseRows");
 
             NewPayContext context = new NewPayContext();
             int i = 0;
             foreach(string row in rows)
             {
                 string[] data = row.Split("~");
-                Employeeeft e = new Employeeeft();
+                Employeeeftaddress e = new Employeeeftaddress();
                 e.AccountNumber = data[9];
-                e.RoutingNumber = data[21];
-                e.RecipientName = data[15];
-                e.PayPeriodEndDate = DateTime.Parse(data[32]);
+                e.BankName = data[10];
+                e.BankStreetAddress = data[11];
+                e.BankStreetAddress2 = data[12];
+                e.PayPeriodEndDate = DateTime.Parse(data[25]);
                 string mockSSN = db.GetMockSSN(data[1]);
+                MockEmployee mockEmployee = db.GetMockEmployee(data[1], data[0]);
                 Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
                 int empId = int.Parse(mockSSN.Substring(4));
                 e.EmployeeId = empId;
@@ -63,27 +60,37 @@ namespace NewPayDataTransformer.Engine
                 {
                     context.Add(e);
                     context.SaveChanges();
-                    MockEmployeeEft me = new MockEmployeeEft(e.Id,e.PayPeriodEndDate,mockSSN);
+                    MockEmployeeEftAddress me = new MockEmployeeEftAddress(e.Id,e.PayPeriodEndDate,mockEmployee);
                     createNewLine(data,me);
+
+
                 }
-                catch (System.Exception x)
+                catch (System.Exception)
                 {
+                    
                     throw;
                 }
-                i++;
-                if(i % 100 == 0)
-                    Logger.Log.Record(i.ToString() + " records parsed");
 
             }
-            Logger.Log.Record("End EmployeeEftPaymentLoader.parseRows");            
+
         }
 
-        void createNewLine(string[] data, MockEmployeeEft me)
+
+
+
+
+        void createNewLine(string[] data, MockEmployeeEftAddress me)
         {
             data[1] = me.MockSsn;
-            data[9] = me.AccountNumber;
-            data[21] = me.RoutingNumber;
-            data[15] = me.RecipientName;
+            data[9] = me.AccountNumber;            
+            data[10] = me.BankName;
+            data[11] = me.BankStreetAddress;
+            data[12] = me.BankStreetAddress2;
+            data[13] = me.Employee.FullName;
+            data[14] = me.Employee.StreetAddress;
+            data[15] = me.Employee.StreetAddress2;
+            data[16] = me.Employee.City + ", " + me.Employee.State + " " + me.Employee.FullZipCode;
+
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < data.Length; i++)
             {
@@ -93,11 +100,12 @@ namespace NewPayDataTransformer.Engine
             newRows.Add(row);
         }
 
+
         void writeNewFile()
         {
             //D:\Shared\NEWPAY\MaskedFiles\RR09NOV2019\PDW_EDS_EFT_PAYMT_RR09NOV2019.dat
 
-            Logger.Log.Record("Begin EmployeeEftPaymentLoader.writeNewFile");            
+            Logger.Log.Record("Begin EmployeeEftAddressLoader.writeNewFile");            
             string directory = newFileName.Substring(0,newFileName.LastIndexOf("\\"));
             if(!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
@@ -118,9 +126,9 @@ namespace NewPayDataTransformer.Engine
                     //throw;
                 }
             }
-            Logger.Log.Record("End EmployeeEftPaymentLoader.writeNewFile");
-
+            Logger.Log.Record("End EmployeeEftAddressLoader.writeNewFile");
         }
+
 
 
     }//end class

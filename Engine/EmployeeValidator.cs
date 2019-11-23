@@ -32,7 +32,17 @@ namespace  NewPayDataTransformer.Engine
 
         private void setExistingEmployees()
         {
-            existingEmployees = context.Employee.ToList();
+            existingEmployees = new List<Employee>();
+            try
+            {
+                int i = context.Employee.Count();
+                if(i > 0)
+                    existingEmployees = context.Employee.ToList();
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         private void addOrUpdateEmployees()
@@ -40,11 +50,11 @@ namespace  NewPayDataTransformer.Engine
             Console.WriteLine("Starting loop at: " + DateTime.Now.ToShortTimeString());
             int newEmployeeCount = 0;
             int updatedEmployeeCount = 0;
-            int existingEmployeeCount = context.Employee.Where(e => e.Agency == Config.Settings.Agency).Count();
+            int existingEmployeeCount = existingEmployees.Count();
             Console.WriteLine(string.Format("There are {0} employees in the db",existingEmployeeCount));
             foreach(TempEmployee newEmployee in newEmployees)
             {
-                Employee existingEmployee = context.Employee.Where(e => e.Ssn == newEmployee.Ssn).Single();
+                Employee existingEmployee = context.Employee.Where(e => e.Ssn == newEmployee.Ssn).SingleOrDefault();
                 if(existingEmployee==null)//new record
                 {
                     context.Employee.Add(newEmployee.CreateEmployee());
@@ -76,9 +86,6 @@ namespace  NewPayDataTransformer.Engine
             Console.WriteLine("Starting DB Save at: " + DateTime.Now.ToShortTimeString());
             context.SaveChanges();
             Console.WriteLine("Finshed DB Save at: " + DateTime.Now.ToShortTimeString());
-
         }
-
-
     }//end class
 }//end namespace
