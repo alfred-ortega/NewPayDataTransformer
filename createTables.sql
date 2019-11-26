@@ -1,3 +1,6 @@
+drop table EmployeeNonEft;
+drop table EmployeeEftAddress;
+drop table EmployeeEft;
 drop table Employee;
 create table Employee
 (
@@ -17,10 +20,9 @@ create table Employee
 ,ZipCode varchar(5)
 ,ZipCode2 varchar(4)
 ,PayPeriodEndDate datetime not null
-,CONSTRAINT employee_unique UNIQUE (Agency, SSN)
+,UNIQUE (Agency, SSN, PayPeriodEndDate) 
 );
 
-drop table EmployeeEft;
 create table EmployeeEft
 (
  Id int(10) auto_increment primary key
@@ -33,7 +35,7 @@ create table EmployeeEft
 ALTER TABLE EmployeeEft
 ADD CONSTRAINT np_EmployeeEft_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-drop table EmployeeEftAddress;
+
 create table EmployeeEftAddress
 (
  Id int(10) auto_increment primary key
@@ -48,7 +50,6 @@ ALTER TABLE EmployeeEftAddress
 ADD CONSTRAINT np_EmployeeEftAddress_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
-drop table EmployeeNonEft;
 create table EmployeeNonEft
 (
  Id int(10) auto_increment primary key
@@ -62,7 +63,6 @@ create table EmployeeNonEft
 ,ZipCode2 varchar(4)
 ,HomePhone varchar(12)
 ,PayPeriodEndDate datetime not null
-,CONSTRAINT employeenoneft_unique UNIQUE (EmployeeId, RecipientName,PayPeriodEndDate)
 );
 ALTER TABLE EmployeeNonEft
 ADD CONSTRAINT np_EmployeeNonEft_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;

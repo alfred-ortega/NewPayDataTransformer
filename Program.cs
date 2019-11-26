@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using MySql.Data.MySqlClient;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
 
@@ -15,11 +16,49 @@ namespace NewPayDataTransformer
             Core core = new Core();
             core.Execute();
 
-
-            
-
+//            reset();
         }
 
+
+        static void reset()
+        {
+            resetFiles();
+
+
+        }
+        static void resetFiles()
+        {
+            string path = @"D:\Shared\NewPay\MaskedFiles\\";
+            Directory.Delete(path,true);
+        }
+
+        static void resetDatabase()
+        {
+            dropTables();
+        }
+
+        static void dropTables()
+        {
+            using (MySqlConnection connection = new MySqlConnection(Config.Settings.ConnectionString))
+            {
+                using(MySqlCommand command = new MySqlCommand())
+                {
+                    command.Connection = connection;
+                    connection.Open();
+                    string[] tables = new string[] {"","","",""};
+                    foreach(string table in tables)
+                    {
+                        string sql = "Drop table " + tables + ";";
+                        command.CommandText = sql;
+                        command.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }//end command
+                
+            }//end connetion
+        }
+
+ 
         static void y()
         {
             using(NewPayContext context = new NewPayContext())

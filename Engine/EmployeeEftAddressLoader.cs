@@ -41,7 +41,6 @@ namespace NewPayDataTransformer.Engine
             Logger.Log.Record("Begin EmployeeEftAddressLoader.parseRows");
 
             NewPayContext context = new NewPayContext();
-            int i = 0;
             foreach(string row in rows)
             {
                 string[] data = row.Split("~");

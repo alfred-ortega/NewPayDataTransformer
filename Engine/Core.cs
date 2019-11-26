@@ -48,7 +48,9 @@ namespace NewPayDataTransformer.Engine
             
             NewPayContext context = new NewPayContext();
             Logger.Log.Record("Begin Core.loadUpdatedEmployees");
-            List<Employee> emps = context.Employee.Where(e => e.Agency == Config.Settings.Agency).ToList();
+//            List<Employee> emps = context.Employee.Where(e => e.Agency == Config.Settings.Agency).ToList();
+            List<Employee> emps = context.Employee.ToList();
+
             Logger.Log.Record(emps.Count.ToString() + " records loaded");
             mockEmployeeDb = new MockEmployeeDb( emps  );
             Logger.Log.Record("End Core.loadUpdatedEmployees");
