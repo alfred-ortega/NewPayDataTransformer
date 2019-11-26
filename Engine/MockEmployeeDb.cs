@@ -21,7 +21,14 @@ namespace NewPayDataTransformer.Engine
             SSNMapping = new Dictionary<string, string>();
             foreach(Employee emp in employees)
             {
-                SSNMapping.Add(emp.Ssn,emp.MockSSN);
+                try
+                {
+                    SSNMapping.Add(emp.Ssn,emp.MockSSN);
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
             }
             SSNMapping.OrderBy(i => i.Key);
             //

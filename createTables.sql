@@ -20,7 +20,7 @@ create table Employee
 ,ZipCode varchar(5)
 ,ZipCode2 varchar(4)
 ,PayPeriodEndDate datetime not null
-,UNIQUE (Agency, SSN, PayPeriodEndDate) 
+,UNIQUE (SSN) 
 );
 
 create table EmployeeEft

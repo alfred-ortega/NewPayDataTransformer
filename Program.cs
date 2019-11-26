@@ -13,6 +13,7 @@ namespace NewPayDataTransformer
         static void Main(string[] args)
         {
             //y();
+            Console.WriteLine(Config.Settings.ConnectionString);
             Core core = new Core();
             core.Execute();
 
@@ -45,12 +46,15 @@ namespace NewPayDataTransformer
                 {
                     command.Connection = connection;
                     connection.Open();
+                    string select = "select count(*) from employee;";
+                    command.CommandText = select;
+                    int i = int.Parse(command.ExecuteScalar().ToString());
                     string[] tables = new string[] {"","","",""};
                     foreach(string table in tables)
                     {
                         string sql = "Drop table " + tables + ";";
                         command.CommandText = sql;
-                        command.ExecuteNonQuery();
+//                        command.ExecuteNonQuery();
                     }
                     connection.Close();
                 }//end command
