@@ -1,0 +1,10 @@
+{ 
+    "Action": "Mask", 
+    "FileToMap": "{0}{1}\\PDW_EDS_MASTER_{0}{1}.dat", 
+    "Columns" : [
+        {
+        "MaskType" : "SSN",
+        "Position" : 1
+        }
+    ]
+}

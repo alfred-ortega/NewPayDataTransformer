@@ -59,6 +59,12 @@ namespace NewPayDataTransformer.Model
 
         }
 
+        public MockEmployee(string ssn)
+        {
+            this.Ssn = ssn;
+            
+        }
+
 
         public void setInitValues(string mockId, DateTime payPeriodEndDate, string agency, DateTime dateOfBirth)
         {

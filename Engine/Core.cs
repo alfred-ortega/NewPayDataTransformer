@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
 using Newtonsoft.Json;
@@ -10,6 +12,8 @@ namespace NewPayDataTransformer.Engine
     public class Core
     {
         List<Employee> employees;
+
+        List<Map> maps;
         MockEmployeeDb mockEmployeeDb;
         public void Execute()
         {
@@ -19,15 +23,8 @@ namespace NewPayDataTransformer.Engine
             loadEmployeeEftPayments();
             loadEmployeeEftAddresses();
             loadNonEFT();
-            //loadMappingFiles();
-            if(Config.Settings.Action == "Mask")
-            {
-                //executeMasking();
-            }
-            else
-            {
-                //executeUnmasking();
-            }
+            loadMappingFiles();
+            mockupFiles();
         }
 
         private void loadEmployees()
@@ -79,6 +76,76 @@ namespace NewPayDataTransformer.Engine
             Logger.Log.Record("End Core.EmployeeNonEftPaymentLoader");
 
         }
+
+        private void loadMappingFiles()
+        {
+            maps = new List<Map>();
+            string[] mappingFiles = Directory.GetFiles(Config.Settings.MappingDirectory);
+            MapLoader ml = new MapLoader();
+            foreach(var mappingFile in mappingFiles)
+            {
+                maps.Add(ml.LoadMap(mappingFile));
+            }
+        }
+
+        private void mockupFiles()
+        {
+            try
+            {
+                string sourceFile = string.Empty;
+                string destinationFile = string.Empty;
+                StringBuilder sb = new StringBuilder();
+                foreach(var map in maps)
+                {
+                    sourceFile = Config.Settings.FilesForMaskingDirectory + map.FileToMap;
+                    destinationFile = Config.Settings.MaskedFilesDirectory + map.FileToMap;
+                    Console.WriteLine(string.Format("{0} is being masked into {1}",sourceFile,destinationFile));
+                    string[] rows = File.ReadAllLines(sourceFile);
+                    foreach(var row in rows)
+                    {
+                        string[] data = row.Split("~");
+                        string ssn = data[1];
+                        MockEmployee me = mockEmployeeDb.GetMockEmployee(ssn);
+                        foreach(Column c in map.Columns)
+                        {
+                            data[c.Position] = Swap(c,me);
+                        }
+
+                        string newRow = string.Empty;
+                        for(int i = 0;i < data.Length; i++)
+                        {
+                            newRow += (data[i] + "~");
+                        }
+                        sb.Append(newRow.Substring(0,newRow.Length-1));
+                    }
+                    File.WriteAllText(destinationFile,sb.ToString());
+                    sb.Clear();
+                }
+            }
+            catch (System.Exception x)
+            {
+                Console.WriteLine(x.Message);
+            }
+
+
+        }
+
+        private string Swap(Column column, MockEmployee me)
+        {
+            string retval = string.Empty;
+            switch(column.MaskType)
+            {
+                case "SSN":
+                    retval = me.Ssn;
+                    break;
+                default:
+                    break;
+            }
+            return retval;
+
+        }
+
+
         
     }//end class
 }//end namespace

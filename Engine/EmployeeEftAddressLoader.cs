@@ -51,7 +51,7 @@ namespace NewPayDataTransformer.Engine
                 e.BankStreetAddress2 = data[12];
                 e.PayPeriodEndDate = DateTime.Parse(data[25]);
                 string mockSSN = db.GetMockSSN(data[1]);
-                MockEmployee mockEmployee = db.GetMockEmployee(data[1], data[0]);
+                MockEmployee mockEmployee = db.GetMockEmployee(data[1]);
                 Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
                 int empId = int.Parse(mockSSN.Substring(4));
                 e.EmployeeId = empId;

@@ -25,9 +25,14 @@ namespace NewPayDataTransformer.Engine
                 {
                     SSNMapping.Add(emp.Ssn,emp.MockSSN);
                 }
-                catch (System.Exception)
+                catch (System.ArgumentException)
                 {
-                    throw;
+                    //
+                }
+                catch (System.Exception x)
+                {
+                    Logger.Log.Record(LogType.Error,x.ToString());
+                    throw x;
                 }
             }
             SSNMapping.OrderBy(i => i.Key);
@@ -58,7 +63,8 @@ namespace NewPayDataTransformer.Engine
 
         public Employee GetEmployeeBySSN(string Ssn, string agency)
         {
-            Employee emp = employees.Where(e => e.Ssn == Ssn && e.Agency == agency).Single();
+            //Employee emp = employees.Where(e => e.Ssn == Ssn && e.Agency == agency).Single();
+            Employee emp = employees.Where(e => e.Ssn == Ssn).Single();
             return emp;
         }
 
@@ -78,10 +84,25 @@ namespace NewPayDataTransformer.Engine
             }
         }
 
-        public MockEmployee GetMockEmployee(string ssn, string agency)
+        public MockEmployee GetMockEmployee(string ssn)
         {
-            Employee emp = employees.Where(e => e.Ssn == ssn && e.Agency == agency).Single();
-            return emp.GetMockedEmployee();
+            //Employee emp = employees.Where(e => e.Ssn == ssn && e.Agency == agency).Single();
+            try
+            {
+                Employee emp = employees.Where(e => e.Ssn == ssn).Single();
+                return emp.GetMockedEmployee();
+            }
+            catch (System.Exception x)
+            {
+                if(ssn == "000000000" || ssn.Substring(0,1) == "Z")
+                {
+                    return new MockEmployee(ssn);
+                }
+                else
+                {
+                    throw new ArgumentException(ssn + " could not be found.");
+                }
+            }
         }
 
     }//end class

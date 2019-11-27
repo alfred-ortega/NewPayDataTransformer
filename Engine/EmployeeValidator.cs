@@ -58,6 +58,7 @@ namespace  NewPayDataTransformer.Engine
                 if(existingEmployee==null)//new record
                 {
                     context.Employee.Add(newEmployee.CreateEmployee());
+                    context.SaveChanges();                        
                     newEmployeeCount++;
                 }
                 else
@@ -78,13 +79,13 @@ namespace  NewPayDataTransformer.Engine
                     existingEmployee.ZipCode2 = newEmployee.ZipCode2;
                     existingEmployee.PayPeriodEndDate = newEmployee.PayPeriodEndDate;
                     context.Update(existingEmployee);
+                    context.SaveChanges();                    
                     updatedEmployeeCount++;
                 }
             }
             Console.WriteLine(string.Format("New Employees: {0}\tUpdated Employees {1} ",newEmployeeCount,updatedEmployeeCount));
             Console.WriteLine("Finished loop at: " + DateTime.Now.ToShortTimeString());
             Console.WriteLine("Starting DB Save at: " + DateTime.Now.ToShortTimeString());
-            context.SaveChanges();
             Console.WriteLine("Finshed DB Save at: " + DateTime.Now.ToShortTimeString());
         }
     }//end class
