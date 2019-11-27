@@ -17,14 +17,32 @@ namespace NewPayDataTransformer.Engine
         MockEmployeeDb mockEmployeeDb;
         public void Execute()
         {
-           
-            loadEmployees();
-            loadUpdatedEmployees();
-            loadEmployeeEftPayments();
-            loadEmployeeEftAddresses();
-            loadNonEFT();
-            loadMappingFiles();
-            mockupFiles();
+            if( Config.Settings.Agency.ToUpper() == "ALL")
+            {
+//                string[] agencies = new string[] {"GS", "CB", "CU", "NH", "OM", "RR"};
+                string[] agencies = new string[] {"CB", "CU", "NH", "RR"};
+                foreach(string agency in agencies)
+                {
+                    processAgency(agency);
+                }
+            }
+            else
+            {
+                processAgency(Config.Settings.Agency);
+            }
+        }
+
+        private void processAgency(string agency)
+        {
+                Config.Settings.Agency = agency;
+                Logger.Log.Record("Beginning process of Agency: " + Config.Settings.Agency);
+                loadEmployees();
+                loadUpdatedEmployees();
+                loadEmployeeEftPayments();
+                loadEmployeeEftAddresses();
+                loadNonEFT();
+                loadMappingFiles();
+                mockupFiles();
         }
 
         private void loadEmployees()
@@ -124,7 +142,7 @@ namespace NewPayDataTransformer.Engine
             }
             catch (System.Exception x)
             {
-                Console.WriteLine(x.Message);
+                Logger.Log.Record(x.Message);
             }
 
 

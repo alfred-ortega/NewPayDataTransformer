@@ -80,7 +80,9 @@ namespace NewPayDataTransformer.Engine
             }
             catch (System.Exception)
             {
-                throw new ArgumentOutOfRangeException("Record for that SSN could not be found.");
+                string message = "Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
+                Logger.Log.Record(LogType.Error, message);
+                throw new ArgumentOutOfRangeException(message);
             }
         }
 
@@ -100,7 +102,8 @@ namespace NewPayDataTransformer.Engine
                 }
                 else
                 {
-                    throw new ArgumentException(ssn + " could not be found.");
+                    Console.WriteLine(ssn + " could not be found.");
+                    return new MockEmployee("999999999");
                 }
             }
         }
