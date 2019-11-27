@@ -1,0 +1,10 @@
+{
+	"Action" : "Mask",
+	"FileToMap" : "V_VALID_TAIND_{0}{1}.dat", 
+	"Columns" : [
+		{
+		"MaskType" : "SSN",
+		"Position" : 1
+		}
+	]
+}

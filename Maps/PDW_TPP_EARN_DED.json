@@ -1,0 +1,10 @@
+{
+	"Action" : "Mask",
+	"FileToMap" : "PDW_TPP_EARN_DED_{0}{1}.dat", 
+	"Columns" : [
+		{
+		"MaskType" : "SSN",
+		"Position" : 1
+		}
+	]
+}

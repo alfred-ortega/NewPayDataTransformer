@@ -1,0 +1,10 @@
+{
+	"Action" : "Mask",
+	"FileToMap" : "PDW_EDS_SHD_LV_RECIP_{0}{1}.dat", 
+	"Columns" : [
+		{
+		"MaskType" : "SSN",
+		"Position" : 1
+		}
+	]
+}
