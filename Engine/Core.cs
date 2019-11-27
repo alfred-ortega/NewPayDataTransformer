@@ -134,7 +134,7 @@ namespace NewPayDataTransformer.Engine
                         {
                             newRow += (data[i] + "~");
                         }
-                        sb.Append(newRow.Substring(0,newRow.Length-1));
+                        sb.AppendLine(newRow.Substring(0,newRow.Length-1));
                     }
                     File.WriteAllText(destinationFile,sb.ToString());
                     sb.Clear();

@@ -80,7 +80,7 @@ namespace NewPayDataTransformer.Engine
             }
             catch (System.Exception)
             {
-                string message = "Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
+                string message = "(MockEmployeeDb.GetMockSSN) Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
                 Logger.Log.Record(LogType.Error, message);
                 throw new ArgumentOutOfRangeException(message);
             }
@@ -102,7 +102,8 @@ namespace NewPayDataTransformer.Engine
                 }
                 else
                 {
-                    Console.WriteLine(ssn + " could not be found.");
+                    string message = "(MockEmployeeDb.GetMockEmployee) Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
+                    Logger.Log.Record(LogType.Error, message);
                     return new MockEmployee("999999999");
                 }
             }
