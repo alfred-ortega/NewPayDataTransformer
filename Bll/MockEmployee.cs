@@ -22,17 +22,21 @@ namespace NewPayDataTransformer.Model
         public string ZipCode2 {get; private set;}
         public DateTime PayPeriodEndDate {get; private set;}
 
-        // private List<MockEmployeeEft> eftRecords;
-        // public List<MockEmployeeEft> EftRecords
-        // {
-        //     get { return eftRecords; }
-        // }
+        public string EmployeeId {get {return Ssn.Substring(4);} }
+        public string BeneficiarySSN {get; private set;}
+        public string BeneficiaryName {get; private set;}
+        public string BeneficiaryStreetAddress {get; private set;}
+      
+        public string BeneficiaryCity {get; private set;}
+        public string BeneficiaryState {get; private set;}
+        public string BeneficiaryZipCode {get; private set;}
+        public string BeneficiaryZipCode2 {get; private set;}
 
-        // private List<MockEmployeeNonEft> nonEftRecords;
-        // public List<MockEmployeeNonEft> NonEftRecords
-        // {
-        //     get { return nonEftRecords; }
-        // }
+        public string HBIPayeeName {get; private set;}
+        public string HBIPayeeSSN {get; private set;}
+
+
+
         
         
 
@@ -83,6 +87,16 @@ namespace NewPayDataTransformer.Model
             this.State = "MO";
             this.ZipCode = "64108";
             this.ZipCode2 = string.Empty;
+            this.BeneficiarySSN = "2002" + mockId;
+            this.BeneficiaryName = "Fred Rogers" + mockId;
+            this.BeneficiaryStreetAddress = mockId + " Sesame St";
+            this.BeneficiaryCity = "Mayberry";
+            this.BeneficiaryState = "NC";
+            this.BeneficiaryZipCode = "90210";
+            this.BeneficiaryZipCode2 = string.Empty;
+            this.HBIPayeeName = "Ronald McDonald" + mockId;
+            this.HBIPayeeSSN = "3003" + mockId;
+
         }
 
         private DateTime setDateOfBirth(DateTime dateOfBirth,DateTime payPeriodEndDate)

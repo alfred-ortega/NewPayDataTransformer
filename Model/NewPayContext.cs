@@ -24,7 +24,7 @@ namespace NewPayDataTransformer.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseLazyLoadingProxies().UseMySQL(NewPayDataTransformer.Engine.Config.Settings.ConnectionString);
+                optionsBuilder.UseLazyLoadingProxies().UseSqlite(NewPayDataTransformer.Engine.Config.Settings.ConnectionString);
             }
         }
 

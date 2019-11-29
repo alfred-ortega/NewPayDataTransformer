@@ -156,6 +156,75 @@ namespace NewPayDataTransformer.Engine
                 case "SSN":
                     retval = me.Ssn;
                     break;
+                case "FullName":
+                    retval = me.FullName;
+                    break;
+                case "EmplId":
+                    retval = me.EmployeeId;
+                    break;  
+                case "FirstName":
+                    retval = me.FirstName;
+                    break;  
+                case "MiddleName":
+                    retval = me.MiddleName;
+                    break;  
+                case "LastName":
+                    retval = me.LastName;
+                    break;  
+                case "Suffix":
+                    retval = me.Suffix;
+                    break;  
+                case "BeneSSN":
+                    retval = me.BeneficiarySSN;
+                    break;
+                case "BeneFullName":
+                    retval = me.BeneficiaryName;
+                    break;
+                case "BeneStreet":
+                    retval = me.BeneficiaryStreetAddress;
+                    break;
+                case "BeneCity":
+                    retval = me.BeneficiaryCity;
+                    break;
+                case "BeneState":
+                    retval = me.BeneficiaryState;
+                    break;
+                case "BeneZip":
+                    retval = me.BeneficiaryZipCode;
+                    break;
+                case "BeneZip2":
+                    retval = me.BeneficiaryZipCode2;
+                    break;
+                case "HBIName":
+                    retval = me.HBIPayeeName;
+                    break;
+                case "HBISSN":
+                    retval = me.HBIPayeeSSN;
+                    break;
+                case "DateOfBirth":
+                    retval = me.DateOfBirth.ToString("dd-MMM-yyyy").ToUpper() + " 00:00:00"; //09-FEB-1992 00:00:00
+                    break;
+                case "PreviousSSN":
+                    retval = string.Empty;
+                    break;
+                case "StreetAddress":
+                    retval = me.StreetAddress;
+                    break;
+                case "StreetAddress2":
+                    retval = me.StreetAddress2;
+                    break;
+                case "City":
+                    retval = me.City;
+                    break;
+                case "State":
+                    retval = me.State;
+                    break;
+                case "ZipCode":
+                    retval = me.ZipCode;
+                    break;
+                case "ZipCode2":
+                    retval = me.ZipCode2;
+                    break;
                 default:
                     break;
             }
