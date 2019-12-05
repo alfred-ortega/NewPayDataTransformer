@@ -20,7 +20,7 @@ namespace NewPayDataTransformer.Engine
         static Config()
         {
             string json = System.IO.File.ReadAllText("appsettings.json");
-            settings = JsonSerializer.Parse<Config>(json);
+            settings = JsonSerializer.Deserialize<Config>(json);
         }
 
         private Config()
