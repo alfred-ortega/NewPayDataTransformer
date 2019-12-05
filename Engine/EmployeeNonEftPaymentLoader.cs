@@ -38,10 +38,9 @@ namespace NewPayDataTransformer.Engine
         {
             Logger.Log.Record("Begin EmployeeNonEftPaymentLoader.parseRows");
             NewPayContext context = new NewPayContext();
-            int i = 0;
             foreach(string row in rows)
             {
-                string[] data = row.Split("~");
+                string[] data = row.Split('~');
                 Employeenoneft e = new Employeenoneft();
                 e.RecipientName = data[10];
                 e.StreetAddress = data[11];

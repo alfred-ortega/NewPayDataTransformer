@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NewPayDataTransformer.Model
 {
-    public class MockEmployee : IEmployee
+    public class MockEmployee :BaseMockObject, IEmployee
     {
         public string Agency {get; private set;}
         public string Ssn {get; private set;}
@@ -47,7 +47,7 @@ namespace NewPayDataTransformer.Model
 
         public MockEmployee(Employee employee)
         {
-            setInitValues(employee.Id.ToString(), employee.PayPeriodEndDate, employee.Agency, employee.DateOfBirth);
+            setInitValues(this.LPad(employee.Id.ToString(),5), employee.PayPeriodEndDate, employee.Agency, employee.DateOfBirth);
             //eftRecords = new List<MockEmployeeEft>();
             //nonEftRecords = new List<MockEmployeeNonEft>();
             // foreach(Employeeeft eft in employee.Employeeeft)
