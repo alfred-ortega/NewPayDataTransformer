@@ -5,14 +5,12 @@ using System.Linq;
 using System.Text;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
-using Newtonsoft.Json;
+
 
 namespace NewPayDataTransformer.Engine
 {
     public class Core
     {
-        List<Employee> employees;
-
         List<Map> maps;
         MockEmployeeDb mockEmployeeDb;
         public void Execute()
@@ -121,7 +119,7 @@ namespace NewPayDataTransformer.Engine
                     string[] rows = File.ReadAllLines(sourceFile);
                     foreach(var row in rows)
                     {
-                        string[] data = row.Split("~");
+                        string[] data = row.Split('~');
                         string ssn = data[1];
                         MockEmployee me = mockEmployeeDb.GetMockEmployee(ssn);
                         foreach(Column c in map.Columns)

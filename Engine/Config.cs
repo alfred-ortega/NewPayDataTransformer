@@ -1,5 +1,8 @@
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+//using Newtonsoft.Json;
 
 namespace NewPayDataTransformer.Engine
 {
@@ -17,7 +20,7 @@ namespace NewPayDataTransformer.Engine
         static Config()
         {
             string json = System.IO.File.ReadAllText("appsettings.json");
-            settings = JsonConvert.DeserializeObject<Config>(json);            
+            settings = JsonSerializer.Parse<Config>(json);
         }
 
         private Config()

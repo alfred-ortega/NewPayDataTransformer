@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace NewPayDataTransformer.Model
 {
@@ -15,7 +16,9 @@ namespace NewPayDataTransformer.Model
         public Map LoadMap(string mappingFile)
         {
             string json = File.ReadAllText(mappingFile);
-            return JsonConvert.DeserializeObject<Map>(json);
+
+            return JsonSerializer.Deserialize<Map>(json);
+//            return JsonConvert.DeserializeObject<Map>(json);
         }
     }//end class
 }//end namespace

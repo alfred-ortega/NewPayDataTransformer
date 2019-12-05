@@ -103,7 +103,7 @@ namespace NewPayDataTransformer.Engine
                 else
                 {
                     string message = "(MockEmployeeDb.GetMockEmployee) Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
-                    Logger.Log.Record(LogType.Error, message);
+                    Logger.Log.Record(LogType.Error, string.Format("{0} - {1}",message,x.ToString()) ) ;
                     return new MockEmployee("999999999");
                 }
             }

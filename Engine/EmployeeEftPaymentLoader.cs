@@ -49,7 +49,7 @@ namespace NewPayDataTransformer.Engine
             int i = 0;
             foreach(string row in rows)
             {
-                string[] data = row.Split("~");
+                string[] data = row.Split('~');
                 Employeeeft e = new Employeeeft();
                 e.AccountNumber = data[9];
                 e.RoutingNumber = data[21];
@@ -68,7 +68,7 @@ namespace NewPayDataTransformer.Engine
                 }
                 catch (System.Exception x)
                 {
-                    throw;
+                    throw x;
                 }
                 i++;
                 if(i % 100 == 0)

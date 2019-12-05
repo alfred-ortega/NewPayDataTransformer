@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-using MySql.Data.MySqlClient;
 using NewPayDataTransformer.Engine;
 using NewPayDataTransformer.Model;
 
