@@ -34,7 +34,7 @@ namespace NewPayDataTransformer.Engine
         {
                 Config.Settings.Agency = agency;
                 Logger.Log.Record("Beginning process of Agency: " + Config.Settings.Agency);
-                //loadEmployees();
+                loadEmployees();
                 loadUpdatedEmployees();
                 loadEmployeeEftPayments();
                 loadEmployeeEftAddresses();

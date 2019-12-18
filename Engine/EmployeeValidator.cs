@@ -50,6 +50,7 @@ namespace  NewPayDataTransformer.Engine
             Console.WriteLine("Starting loop at: " + DateTime.Now.ToShortTimeString());
             int newEmployeeCount = 0;
             int updatedEmployeeCount = 0;
+            int i = 0;
             int existingEmployeeCount = existingEmployees.Count();
             Console.WriteLine(string.Format("There are {0} employees in the db",existingEmployeeCount));
             foreach(TempEmployee newEmployee in newEmployees)
@@ -82,11 +83,16 @@ namespace  NewPayDataTransformer.Engine
                     context.SaveChanges();                    
                     updatedEmployeeCount++;
                 }
+                i++;
+                if(i % 100 == 0)
+                {
+                    Console.WriteLine(string.Format("{0} {1} db records inserted/updated",DateTime.Now.ToString(), i));
+                }
             }
             Console.WriteLine(string.Format("New Employees: {0}\tUpdated Employees {1} ",newEmployeeCount,updatedEmployeeCount));
-            Console.WriteLine("Finished loop at: " + DateTime.Now.ToShortTimeString());
-            Console.WriteLine("Starting DB Save at: " + DateTime.Now.ToShortTimeString());
-            Console.WriteLine("Finshed DB Save at: " + DateTime.Now.ToShortTimeString());
+            Console.WriteLine("Finished loop at: " + DateTime.Now.ToString());
+            Console.WriteLine("Starting DB Save at: " + DateTime.Now.ToString());
+            Console.WriteLine("Finshed DB Save at: " + DateTime.Now.ToString());
         }
     }//end class
 }//end namespace
