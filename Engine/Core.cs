@@ -17,7 +17,7 @@ namespace NewPayDataTransformer.Engine
         {
             if( Config.Settings.Agency.ToUpper() == "ALL")
             {
-                string[] agencies = new string[] {"CB", "CU", "GS", "NH", "OM", "RR"};
+                string[] agencies = new string[] {"CB", "CU",  "NH", "OM", "RR","GS"};
 //                string[] agencies = new string[] {"CB", "CU", "NH", "RR"};
                 foreach(string agency in agencies)
                 {
