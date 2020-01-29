@@ -15,10 +15,10 @@ namespace NewPayDataTransformer.Engine
         MockEmployeeDb mockEmployeeDb;
         public void Execute()
         {
+          
             if( Config.Settings.Agency.ToUpper() == "ALL")
             {
                 string[] agencies = new string[] {"CB", "CU",  "NH", "OM", "RR","GS"};
-//                string[] agencies = new string[] {"CB", "CU", "NH", "RR"};
                 foreach(string agency in agencies)
                 {
                     processAgency(agency);
@@ -28,6 +28,19 @@ namespace NewPayDataTransformer.Engine
             {
                 processAgency(Config.Settings.Agency);
             }
+            backupDatabase();
+        }
+
+        private void backupDatabase()
+        {
+            Logger.Log.Record("Beginning Database Backup");
+            string dbName = Config.Settings.ConnectionString.Replace("Data Source=",""); //"Data Source=D:\\Shared\\NEWPAY\\Database\\newpay.db
+            string newDbName = string.Format(dbName.Substring(0,dbName.LastIndexOf(".")));
+            newDbName += "_" + Config.Settings.PayPeriodEndDate + ".db";
+            Console.WriteLine(newDbName);
+            Logger.Log.Record(string.Format("{0} being backed up as {1}",dbName,newDbName));
+            File.Copy(dbName,newDbName,true);
+            Logger.Log.Record("Completed Database Backup");
         }
 
         private void processAgency(string agency)
