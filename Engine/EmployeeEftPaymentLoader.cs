@@ -49,18 +49,18 @@ namespace NewPayDataTransformer.Engine
             int i = 0;
             foreach(string row in rows)
             {
-                string[] data = row.Split('~');
-                Employeeeft e = new Employeeeft();
-                e.AccountNumber = data[9];
-                e.RoutingNumber = data[21];
-                e.RecipientName = data[15];
-                e.PayPeriodEndDate = DateTime.Parse(data[32]);
-                string mockSSN = db.GetMockSSN(data[1]);
-                Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
-                int empId = int.Parse(mockSSN.Substring(4));
-                e.EmployeeId = empId;
                 try
                 {
+                    string[] data = row.Split('~');
+                    Employeeeft e = new Employeeeft();
+                    e.AccountNumber = data[9];
+                    e.RoutingNumber = data[21];
+                    e.RecipientName = data[15];
+                    e.PayPeriodEndDate = DateTime.Parse(data[32]);
+                    string mockSSN = db.GetMockSSN(data[1]);
+                    Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
+                    int empId = int.Parse(mockSSN.Substring(4));
+                    e.EmployeeId = empId;
                     context.Add(e);
                     context.SaveChanges();
                     MockEmployeeEft me = new MockEmployeeEft(e.Id,e.PayPeriodEndDate,mockSSN);
@@ -68,7 +68,8 @@ namespace NewPayDataTransformer.Engine
                 }
                 catch (System.Exception x)
                 {
-                    throw x;
+                    Logger.Log.Record(x.ToString());
+//                    throw x;
                 }
                 i++;
                 if(i % 100 == 0)

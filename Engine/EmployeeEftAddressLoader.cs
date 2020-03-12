@@ -43,20 +43,21 @@ namespace NewPayDataTransformer.Engine
             NewPayContext context = new NewPayContext();
             foreach(string row in rows)
             {
-                string[] data = row.Split("~");
-                Employeeeftaddress e = new Employeeeftaddress();
-                e.AccountNumber = data[9];
-                e.BankName = data[10];
-                e.BankStreetAddress = data[11];
-                e.BankStreetAddress2 = data[12];
-                e.PayPeriodEndDate = DateTime.Parse(data[25]);
-                string mockSSN = db.GetMockSSN(data[1]);
-                MockEmployee mockEmployee = db.GetMockEmployee(data[1]);
-                Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
-                int empId = int.Parse(mockSSN.Substring(4));
-                e.EmployeeId = empId;
                 try
-                {
+                {                
+                    string[] data = row.Split('~');
+                    Employeeeftaddress e = new Employeeeftaddress();
+                    e.AccountNumber = data[9];
+                    e.BankName = data[10];
+                    e.BankStreetAddress = data[11];
+                    e.BankStreetAddress2 = data[12];
+                    e.PayPeriodEndDate = DateTime.Parse(data[25]);
+                    string mockSSN = db.GetMockSSN(data[1]);
+                    MockEmployee mockEmployee = db.GetMockEmployee(data[1]);
+                    Employee emp = db.GetEmployeeBySSN(data[1], data[0]);
+                    int empId = int.Parse(mockSSN.Substring(4));
+                    e.EmployeeId = empId;
+
                     context.Add(e);
                     context.SaveChanges();
                     MockEmployeeEftAddress me = new MockEmployeeEftAddress(e.Id,e.PayPeriodEndDate,mockEmployee);
