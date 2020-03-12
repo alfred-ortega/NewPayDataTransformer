@@ -34,11 +34,9 @@ namespace NewPayDataTransformer.Engine
         {
                 Config.Settings.Agency = agency;
                 Logger.Log.Record("Beginning process of Agency: " + Config.Settings.Agency);
-                //loadEmployees();
+                loadEmployees();
                 loadUpdatedEmployees();
-                loadEmployeeEftPayments();
                 loadEmployeeEftAddresses();
-                loadNonEFT();
                 loadMappingFiles();
                 mockupFiles();
         }
@@ -70,12 +68,6 @@ namespace NewPayDataTransformer.Engine
 
         }
 
-        private void loadEmployeeEftPayments()
-        {
-            Logger.Log.Record("Begin Core.loadEmployeeEftPayments");
-            EmployeeEftPaymentLoader eftLoader = new EmployeeEftPaymentLoader(mockEmployeeDb);
-            Logger.Log.Record("End Core.loadEmployeeEftPayments");
-        }
 
         private void loadEmployeeEftAddresses()
         {
@@ -85,13 +77,6 @@ namespace NewPayDataTransformer.Engine
             Logger.Log.Record("End Core.loadEmployeeEftAddresses");
         }
 
-        private void loadNonEFT()
-        {//EmployeeNonEftPaymentLoader
-            Logger.Log.Record("Begin Core.EmployeeNonEftPaymentLoader");
-            EmployeeNonEftPaymentLoader eftLoader = new EmployeeNonEftPaymentLoader(mockEmployeeDb);
-            Logger.Log.Record("End Core.EmployeeNonEftPaymentLoader");
-
-        }
 
         private void loadMappingFiles()
         {
@@ -200,7 +185,7 @@ namespace NewPayDataTransformer.Engine
                     retval = me.HBIPayeeSSN;
                     break;
                 case "DateOfBirth":
-                    retval = me.DateOfBirth.ToString("dd-MMM-yyyy").ToUpper() + " 00:00:00"; //09-FEB-1992 00:00:00
+                    retval = me.DateOfBirth.ToString("mmddyyyy"); //06301974
                     break;
                 case "PreviousSSN":
                     retval = string.Empty;

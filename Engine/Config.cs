@@ -19,7 +19,7 @@ namespace NewPayDataTransformer.Engine
 
         static Config()
         {
-            string json = System.IO.File.ReadAllText("appsettings.json");
+            string json = System.IO.File.ReadAllText(@"E:\Developers\AlO\source\repos\NewPayDataTransformer\appsettings.json");
             settings = JsonSerializer.Deserialize<Config>(json);
         }
 
@@ -29,9 +29,9 @@ namespace NewPayDataTransformer.Engine
 
 
         private string employeeFile;
-        private string eftPaymentFile;
-        private string eftAddressFile;
-        private string nonEftFile;
+        private string employeeIdNumberFile;
+        private string employeeAddressFile;
+
         private string mappingDirectory;
         private string filesForMaskingDirectory;
         private string maskedFilesDirectory;
@@ -48,17 +48,17 @@ namespace NewPayDataTransformer.Engine
             set { employeeFile = value; }
         }
 
-        public string EftPaymentFile
+        public string EmployeeIdNumberFile
         {
-            get { return string.Format(eftPaymentFile,Agency,PayPeriodEndDate); }
-            set { eftPaymentFile = value; }
+            get { return string.Format(employeeIdNumberFile,Agency,PayPeriodEndDate); }
+            set { employeeIdNumberFile = value; }
         }
 
         //EftAddressFile
         public string EftAddressFile
         {
-            get { return string.Format(eftAddressFile,Agency,PayPeriodEndDate); }
-            set { eftAddressFile = value; }
+            get { return string.Format(employeeAddressFile,Agency,PayPeriodEndDate); }
+            set { employeeAddressFile = value; }
         }
         
 
