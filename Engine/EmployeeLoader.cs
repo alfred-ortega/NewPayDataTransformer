@@ -19,7 +19,7 @@ namespace NewPayDataTransformer.Engine
             int rowCount = rows.Length;
             for(int i = 1; i < rowCount; i++) // skip header row so we start at 1
             {
-                string[] data = rows[i].Split(",");
+                string[] data = rows[i].Split("\",\"");
                 try
                 {
                     TempEmployee tempEmployee = new TempEmployee();

@@ -29,19 +29,6 @@ namespace NewPayDataTransformer.Model
         public MockEmployee(Employee employee)
         {
             setInitValues(this.LPad(employee.Id.ToString(),5), employee.Agency, employee.DateOfBirth);
-            //eftRecords = new List<MockEmployeeEft>();
-            //nonEftRecords = new List<MockEmployeeNonEft>();
-            // foreach(Employeeeft eft in employee.Employeeeft)
-            // {
-            //     MockEmployeeEft m = new MockEmployeeEft(eft.Id,eft.PayPeriodEndDate,employee.MockSSN);
-            //     eftRecords.Add(m);
-            // }
-            // foreach(Employeenoneft noneft in employee.Employeenoneft)
-            // {
-            //     MockEmployeeNonEft m = new MockEmployeeNonEft(noneft.Id, noneft.PayPeriodEndDate, employee.MockSSN);
-            //     nonEftRecords.Add(m);
-            // }
-
         }
 
         public MockEmployee(string ssn)

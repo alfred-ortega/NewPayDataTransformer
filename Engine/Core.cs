@@ -101,27 +101,46 @@ namespace NewPayDataTransformer.Engine
                 StringBuilder sb = new StringBuilder();
                 foreach(var map in maps)
                 {
+                    bool isLastColumnMasked = false;
                     sourceFile = Config.Settings.FilesForMaskingDirectory + map.FileToMap;
                     destinationFile = Config.Settings.MaskedFilesDirectory + map.FileToMap;
                     Console.WriteLine(string.Format("{0} is being masked into {1}",sourceFile,destinationFile));
                     string[] rows = File.ReadAllLines(sourceFile);
+                    string header = rows[0];
+                    sb.AppendLine(header);
                     int rowCount = rows.Length;
+                    int lastColumnNumber = 0;
                     for (int i = 1; i < rowCount; i++)
                     {
-                        string[] data = rows[i].Split(",");
+                        string[] data = rows[i].Split("\",\"");
+                        lastColumnNumber = data.Length - 1;
                         string emplId = data[3];
                         MockEmployee me = mockEmployeeDb.GetMockEmployee(emplId);
                         foreach (Column c in map.Columns)
                         {
+                            if (c.Position == lastColumnNumber)
+                            {
+                                isLastColumnMasked = true;
+                            }
+
                             data[c.Position] = Swap(c, me);
                         }
 
                         string newRow = string.Empty;
                         for (int j = 0; j < data.Length; j++)
                         {
-                            newRow += (data[j] + ",");
+                            newRow += (data[j] + "\",\"");
                         }
-                        sb.AppendLine(newRow.Substring(0, newRow.Length - 1));
+
+                        if (isLastColumnMasked)
+                        {
+                            sb.AppendLine(newRow.Substring(0, newRow.Length - 2));
+                        }
+                        else
+                        {
+                            sb.AppendLine(newRow.Substring(0, newRow.Length - 3));
+                        }
+                        
 
                     }
                     File.WriteAllText(destinationFile,sb.ToString());
