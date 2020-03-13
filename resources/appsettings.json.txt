@@ -4,7 +4,7 @@
   "Action": "Mask",
   "PayPeriodEndDate": "07DEC2019",
   "BaseDirectory": "E:\\Developers\\AlO\\NEWPAY\\",
-  "EmployeeFile": "FilesForMasking\\{0}{1}\\EmployeeImport_{0}{1}.dat",
+  "EmployeeFile": "FilesForMasking\\{0}{1}\\EmployeeImport_{0}{1}.csv",
   "MappingDirectory": "Config\\",
   "FilesForMaskingDirectory": "FilesForMasking\\{0}{1}\\",
   "MaskedFilesDirectory": "MaskedFiles\\{0}{1}\\",

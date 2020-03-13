@@ -18,8 +18,9 @@ namespace NewPayDataTransformer.Model
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Ssn { get; set; }
-        
-        
+        public string County { get; set; }
+
+
 
         public string FullName {get {return string.Format("{0}, {1} {2}",this.LastName,this.FirstName, this.MiddleName ).Trim();}}
 
@@ -53,7 +54,8 @@ namespace NewPayDataTransformer.Model
         public void setInitValues(string mockId, string agency, string dateOfBirth)
         {
             this.Agency = agency;
-            this.Emplid = "1001" + mockId;
+            this.Emplid = LPad(mockId,8);
+            this.Ssn = "1001" + mockId;
             this.DateOfBirth = dateOfBirth; 
             this.LastName = "BAINES" + mockId;
             this.FirstName = "ROBERT";

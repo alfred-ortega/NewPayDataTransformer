@@ -86,23 +86,23 @@ namespace NewPayDataTransformer.Engine
             }
         }
 
-        public MockEmployee GetMockEmployee(string ssn)
+        public MockEmployee GetMockEmployee(string emplid)
         {
             //Employee emp = employees.Where(e => e.Ssn == ssn && e.Agency == agency).Single();
             try
             {
-                Employee emp = employees.Where(e => e.Emplid == ssn).Single();
+                Employee emp = employees.Where(e => e.Emplid == emplid).Single();
                 return emp.GetMockedEmployee();
             }
             catch (System.Exception x)
             {
-                if(ssn == "000000000" || ssn.Substring(0,1) == "Z")
+                if(emplid == "000000000" || emplid.Substring(0,1) == "Z")
                 {
-                    return new MockEmployee(ssn);
+                    return new MockEmployee(emplid);
                 }
                 else
                 {
-                    string message = "(MockEmployeeDb.GetMockEmployee) Record for SSN {" + ssn  + "} could not be found in agency " + Config.Settings.Agency;
+                    string message = "(MockEmployeeDb.GetMockEmployee) Record for SSN {" + emplid  + "} could not be found in agency " + Config.Settings.Agency;
                     Logger.Log.Record(LogType.Error, string.Format("{0} - {1}",message,x.ToString()) ) ;
                     return new MockEmployee("999999999");
                 }

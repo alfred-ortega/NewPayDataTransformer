@@ -105,22 +105,24 @@ namespace NewPayDataTransformer.Engine
                     destinationFile = Config.Settings.MaskedFilesDirectory + map.FileToMap;
                     Console.WriteLine(string.Format("{0} is being masked into {1}",sourceFile,destinationFile));
                     string[] rows = File.ReadAllLines(sourceFile);
-                    foreach(var row in rows)
+                    int rowCount = rows.Length;
+                    for (int i = 1; i < rowCount; i++)
                     {
-                        string[] data = row.Split('~');
-                        string ssn = data[1];
-                        MockEmployee me = mockEmployeeDb.GetMockEmployee(ssn);
-                        foreach(Column c in map.Columns)
+                        string[] data = rows[i].Split(",");
+                        string emplId = data[3];
+                        MockEmployee me = mockEmployeeDb.GetMockEmployee(emplId);
+                        foreach (Column c in map.Columns)
                         {
-                            data[c.Position] = Swap(c,me);
+                            data[c.Position] = Swap(c, me);
                         }
 
                         string newRow = string.Empty;
-                        for(int i = 0;i < data.Length; i++)
+                        for (int j = 0; j < data.Length; j++)
                         {
-                            newRow += (data[i] + "~");
+                            newRow += (data[j] + ",");
                         }
-                        sb.AppendLine(newRow.Substring(0,newRow.Length-1));
+                        sb.AppendLine(newRow.Substring(0, newRow.Length - 1));
+
                     }
                     File.WriteAllText(destinationFile,sb.ToString());
                     sb.Clear();
@@ -140,12 +142,12 @@ namespace NewPayDataTransformer.Engine
             switch(column.MaskType)
             {
                 case "SSN":
-                    retval = me.Emplid;
+                    retval = me.Ssn;
                     break;
                 case "FullName":
                     retval = me.FullName;
                     break;
-                case "EmplId":
+                case "EMPLID":
                     retval = me.Emplid;
                     break;  
                 case "FirstName":
@@ -177,6 +179,9 @@ namespace NewPayDataTransformer.Engine
                     break;
                 case "ZipCode":
                     retval = me.ZipCode;
+                    break;
+                case "County":
+                    //retval = me.County;
                     break;
                 default:
                     break;
