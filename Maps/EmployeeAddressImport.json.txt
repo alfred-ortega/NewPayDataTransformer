@@ -1,0 +1,19 @@
+{
+	"Action": "Mask",
+	"FileToMap": "EmployeeAddressImport_{0}{1}.csv",
+	"Columns": [
+		{
+			"MaskType": "EMPLID",
+			"Position": 3
+		},
+		{
+			"MaskType": "StreetAddress",
+			"Position": 6
+		},
+		{
+			"MaskType": "StreetAddress2",
+			"Position": 7
+		}
+
+	]
+}

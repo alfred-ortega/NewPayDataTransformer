@@ -1,0 +1,6 @@
+"BatchNumber","HROrganization","EffectiveDate","Employee","EmployeeAddress","PostalAddress.Country","PostalAddress.DeliveryAddress.AddressLine1","PostalAddress.DeliveryAddress.AddressLine2","PostalAddress.Municipality","PostalAddress.StateProvince","PostalAddress.PostalCode","PostalAddress.County","PostalAddress.Region","PostalAddress.Type","Active","MakeEmployeeMailingAddress","MakeEmployeePayrollAddress"
+"1","FED","03061995","00013663","1","US","2821 NE MARYWOOD LANE","","LEES SUMMIT","MO","64086-3906","JACKSON","6","2","1","1","1"
+"1","FED","03012020","00013663","2","US","4436 SW RIVULET DR","","LEES SUMMIT","MO","64082-2500","JACKSON","6","2","1","1","1"
+"1","FED","03061995","01234567","1","US","1600 PENNSYLVANIA AVE","","WASHINGTON","DC","05555","DIST OF COL","6","2","1","1","1"
+"1","FED","03061995","03061995","1","US","2 PERSHING ST","","KANSAS CITY","MO","64108","JACKSON","6","2","1","1","1"
+"1","FED","03061995","76543210","1","US","4 BOYDEN ST","","FALL RIVER","MA","02724","BRISTOL","6","2","1","1","1"
