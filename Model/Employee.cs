@@ -7,14 +7,12 @@ namespace NewPayDataTransformer.Model
     {
         public Employee()
         {
-            Employeeeft = new HashSet<Employeeeft>();
-            Employeeeftaddress = new HashSet<Employeeeftaddress>();
-            Employeenoneft = new HashSet<Employeenoneft>();
+
         }
 
         public int Id { get; set; }
         public string Agency { get; set; }
-        public string Ssn { get; set; }
+        public string Emplid { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -29,8 +27,6 @@ namespace NewPayDataTransformer.Model
         public string ZipCode2 { get; set; }
         public DateTime PayPeriodEndDate { get; set; }
 
-        public virtual ICollection<Employeeeft> Employeeeft { get; set; }
-        public virtual ICollection<Employeeeftaddress> Employeeeftaddress { get; set; }
-        public virtual ICollection<Employeenoneft> Employeenoneft { get; set; }
+
     }
 }

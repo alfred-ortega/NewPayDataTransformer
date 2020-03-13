@@ -6,7 +6,7 @@ namespace NewPayDataTransformer.Model
     public class MockEmployee :BaseMockObject, IEmployee
     {
         public string Agency {get; private set;}
-        public string Ssn {get; private set;}
+        public string Emplid {get; private set;}
         public string LastName {get; private set;}
         public string FirstName {get; private set;}
         public string MiddleName {get; private set;}
@@ -22,7 +22,7 @@ namespace NewPayDataTransformer.Model
         public string ZipCode2 {get; private set;}
         public DateTime PayPeriodEndDate {get; private set;}
 
-        public string EmployeeId {get {return Ssn.Substring(4);} }
+        public string EmployeeId {get {return Emplid.Substring(4);} }
         public string BeneficiarySSN {get; private set;}
         public string BeneficiaryName {get; private set;}
         public string BeneficiaryStreetAddress {get; private set;}
@@ -65,7 +65,7 @@ namespace NewPayDataTransformer.Model
 
         public MockEmployee(string ssn)
         {
-            this.Ssn = ssn;
+            this.Emplid = ssn;
             
         }
 
@@ -74,8 +74,8 @@ namespace NewPayDataTransformer.Model
         {
             this.Agency = agency;
             this.PayPeriodEndDate = payPeriodEndDate;
-            this.Ssn = "1001" + mockId;
-            this.DateOfBirth = dateOfBirth; // setDateOfBirth(dateOfBirth, payPeriodEndDate);
+            this.Emplid = "1001" + mockId;
+            this.DateOfBirth = dateOfBirth; 
             this.LastName = "BAINES" + mockId;
             this.FirstName = "ROBERT";
             this.MiddleName = string.Empty;
@@ -97,16 +97,6 @@ namespace NewPayDataTransformer.Model
             this.HBIPayeeName = "Ronald McDonald" + mockId;
             this.HBIPayeeSSN = "3003" + mockId;
 
-        }
-
-        private DateTime setDateOfBirth(DateTime dateOfBirth,DateTime payPeriodEndDate)
-        {
-            DateTime retval = dateOfBirth;
-            DateTime payPeriodStartDate = payPeriodEndDate.AddDays(-14);
-            if(dateOfBirth >= payPeriodStartDate && dateOfBirth <= payPeriodEndDate )
-                retval = payPeriodStartDate;
-
-            return retval;    
         }
 
 

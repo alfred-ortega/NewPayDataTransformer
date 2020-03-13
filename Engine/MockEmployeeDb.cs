@@ -23,7 +23,7 @@ namespace NewPayDataTransformer.Engine
             {
                 try
                 {
-                    SSNMapping.Add(emp.Ssn,emp.MockSSN);
+                    SSNMapping.Add(emp.Emplid,emp.MockSSN);
                 }
                 catch (System.ArgumentException)
                 {
@@ -64,7 +64,7 @@ namespace NewPayDataTransformer.Engine
         public Employee GetEmployeeBySSN(string Ssn, string agency)
         {
             //Employee emp = employees.Where(e => e.Ssn == Ssn && e.Agency == agency).Single();
-            Employee emp = employees.Where(e => e.Ssn == Ssn).Single();
+            Employee emp = employees.Where(e => e.Emplid == Ssn).Single();
             return emp;
         }
 
@@ -91,7 +91,7 @@ namespace NewPayDataTransformer.Engine
             //Employee emp = employees.Where(e => e.Ssn == ssn && e.Agency == agency).Single();
             try
             {
-                Employee emp = employees.Where(e => e.Ssn == ssn).Single();
+                Employee emp = employees.Where(e => e.Emplid == ssn).Single();
                 return emp.GetMockedEmployee();
             }
             catch (System.Exception x)

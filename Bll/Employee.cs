@@ -17,7 +17,7 @@ namespace NewPayDataTransformer.Model
 
         public int CompareTo(Employee other)
         {
-            return this.Ssn.CompareTo(other.Ssn);
+            return this.Emplid.CompareTo(other.Emplid);
         }
 
 
@@ -26,32 +26,16 @@ namespace NewPayDataTransformer.Model
                        ,string lastName
                        ,string firstName
                        ,string middleName
-                       ,string suffix
                        ,DateTime dateOfBirth
-                       ,string streetAddress
-                       ,string streetAddress2
-                       ,string streetAddress3
-                       ,string city
-                       ,string state
-                       ,string zipCode
-                       ,string zipCode2
-                       ,DateTime payPeriodEndDate
                        )
         {
             this.Agency = agency;
-            this.Ssn = ssn;
+            this.Emplid = ssn;
             this.LastName = lastName;
             this.FirstName = firstName;
             this.MiddleName = middleName;
-            this.Suffix = suffix;
             this.DateOfBirth = dateOfBirth;
-            this.StreetAddress = streetAddress;
-            this.StreetAddress3 = streetAddress3;
-            this.City = city;
-            this.State = state;
-            this.ZipCode = zipCode;
-            this.ZipCode2 = zipCode2;
-            this.PayPeriodEndDate = payPeriodEndDate;            
+      
         }
 
 

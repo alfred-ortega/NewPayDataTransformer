@@ -23,19 +23,10 @@ namespace NewPayDataTransformer.Engine
                 {
                     TempEmployee tempEmployee = new TempEmployee();
                     tempEmployee.Agency = data[0];
-                    tempEmployee.Ssn = data[1];
                     tempEmployee.FirstName = data[2];
                     tempEmployee.MiddleName = data[3];
                     tempEmployee.LastName = data[4];
-                    tempEmployee.Suffix = data[5];
                     tempEmployee.DateOfBirth = DateTime.Parse(data[6]);
-                    tempEmployee.City = data[7];
-                    tempEmployee.StreetAddress = data[8];
-                    tempEmployee.StreetAddress2 = data[9];
-                    tempEmployee.State = data[10];
-                    tempEmployee.ZipCode = data[11];
-                    tempEmployee.ZipCode2 = data[12];
-                    tempEmployee.PayPeriodEndDate = DateTime.Parse(data[13]);
                     TempEmployees.Add(tempEmployee);                    
                 }
                 catch (System.Exception x)

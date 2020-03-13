@@ -49,7 +49,6 @@ namespace NewPayDataTransformer.Engine
                 Logger.Log.Record("Beginning process of Agency: " + Config.Settings.Agency);
                 loadEmployees();
                 loadUpdatedEmployees();
-                loadEmployeeEftAddresses();
                 loadMappingFiles();
                 mockupFiles();
         }
@@ -79,15 +78,6 @@ namespace NewPayDataTransformer.Engine
             mockEmployeeDb = new MockEmployeeDb( emps  );
             Logger.Log.Record("End Core.loadUpdatedEmployees");
 
-        }
-
-
-        private void loadEmployeeEftAddresses()
-        {
-            //EmployeeEftAddressLoader
-            Logger.Log.Record("Begin Core.loadEmployeeEftAddresses");
-            EmployeeEftAddressLoader eftLoader = new EmployeeEftAddressLoader(mockEmployeeDb);
-            Logger.Log.Record("End Core.loadEmployeeEftAddresses");
         }
 
 
@@ -150,13 +140,13 @@ namespace NewPayDataTransformer.Engine
             switch(column.MaskType)
             {
                 case "SSN":
-                    retval = me.Ssn;
+                    retval = me.Emplid;
                     break;
                 case "FullName":
                     retval = me.FullName;
                     break;
                 case "EmplId":
-                    retval = me.EmployeeId;
+                    retval = me.Emplid;
                     break;  
                 case "FirstName":
                     retval = me.FirstName;

@@ -1,68 +1,56 @@
-drop table EmployeeNonEft;
-drop table EmployeeEftAddress;
-drop table EmployeeEft;
-drop table Employee;
-create table Employee
-(
- Id int(10) auto_increment primary key
-,Agency varchar(3) not null
-,SSN varchar(10) not null
-,LastName varchar(35) not null
-,FirstName varchar(35) not null
-,MiddleName varchar(35)
-,Suffix varchar(7)
-,DateOfBirth date not null
-,StreetAddress varchar(75)
-,StreetAddress2 varchar(75)
-,StreetAddress3 varchar(75)
-,City varchar(75)
-,State varchar(2)
-,ZipCode varchar(5)
-,ZipCode2 varchar(4)
-,PayPeriodEndDate datetime not null
-,UNIQUE (SSN) 
-);
-
-create table EmployeeEft
-(
- Id int(10) auto_increment primary key
-,EmployeeId int(10) not null
-,RecipientName varchar(30)
-,RoutingNumber varchar(9)
-,AccountNumber varchar(30)
-,PayPeriodEndDate datetime not null
-);
-ALTER TABLE EmployeeEft
-ADD CONSTRAINT np_EmployeeEft_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;
+DROP TABLE NEWPAY.employee;
+CREATE TABLE newpay.employee (
+  Id int(10) NOT NULL AUTO_INCREMENT,
+  Emplid varchar(15) NOT NULL unique,
+  Agency varchar(3) NOT NULL,
+  LastName varchar(35) NOT NULL,
+  FirstName varchar(35) NOT NULL,
+  MiddleName varchar(35) DEFAULT NULL,
+  Suffix varchar(7) DEFAULT NULL,
+  DateOfBirth date NOT NULL,
+  StreetAddress varchar(75) DEFAULT NULL,
+  StreetAddress2 varchar(75) DEFAULT NULL,
+  StreetAddress3 varchar(75) DEFAULT NULL,
+  City varchar(75) DEFAULT NULL,
+  State varchar(2) DEFAULT NULL,
+  ZipCode varchar(5) DEFAULT NULL,
+  ZipCode2 varchar(4) DEFAULT NULL,
+  PayPeriodEndDate datetime NOT NULL,
+  PRIMARY KEY (Id)
+) ENCRYPTION='Y';
 
 
-create table EmployeeEftAddress
-(
- Id int(10) auto_increment primary key
-,EmployeeId int(10) not null
-,BankName varchar(35)
-,AccountNumber varchar(30)
-,BankStreetAddress varchar(75)
-,BankStreetAddress2 varchar(75)
-,PayPeriodEndDate datetime not null
-);
-ALTER TABLE EmployeeEftAddress
-ADD CONSTRAINT np_EmployeeEftAddress_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;
+INSERT INTO newpay.employee
+(Emplid,
+Agency,
+LastName,
+FirstName,
+MiddleName,
+Suffix,
+DateOfBirth,
+StreetAddress,
+StreetAddress2,
+StreetAddress3,
+City,
+State,
+ZipCode,
+ZipCode2,
+PayPeriodEndDate)
+VALUES
+('03061995',
+'FED',
+'WALKER',
+'JOHNNY',
+NULL,
+'III',
+'1974-01-01',
+'123 Main St',
+NULL,
+NULL,
+'BOSTON',
+'MA',
+'12345',
+'6789',
+'2019-12-09');
 
-
-create table EmployeeNonEft
-(
- Id int(10) auto_increment primary key
-,EmployeeId int(10) not null
-,RecipientName varchar(75)
-,StreetAddress varchar(75)
-,StreetAddress2 varchar(75)
-,City varchar(75)
-,State varchar(2)
-,ZipCode varchar(5)
-,ZipCode2 varchar(4)
-,HomePhone varchar(12)
-,PayPeriodEndDate datetime not null
-);
-ALTER TABLE EmployeeNonEft
-ADD CONSTRAINT np_EmployeeNonEft_Employee FOREIGN KEY (EmployeeId) REFERENCES Employee (Id) ON DELETE CASCADE ON UPDATE CASCADE;
+SELECT * FROM newpay.employee;
