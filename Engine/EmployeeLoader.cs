@@ -16,26 +16,35 @@ namespace NewPayDataTransformer.Engine
             TempEmployees = new List<TempEmployee>();                
 
             string[] rows = File.ReadAllLines(employeeFile); 
-            foreach(string row in rows)
+            int rowCount = rows.Length;
+            for(int i = 1; i < rowCount; i++) // skip header row so we start at 1
             {
-                string[] data = row.Split("~");
+                string[] data = rows[i].Split(",");
+                int dobYear = 0;
+                int dobMonth = 0;
+                int dobDay = 0;
                 try
                 {
                     TempEmployee tempEmployee = new TempEmployee();
-                    tempEmployee.Agency = data[0];
-                    tempEmployee.FirstName = data[2];
-                    tempEmployee.MiddleName = data[3];
-                    tempEmployee.LastName = data[4];
-                    tempEmployee.DateOfBirth = DateTime.Parse(data[6]);
+                    tempEmployee.Emplid = data[3];
+                    tempEmployee.Agency = data[1];
+                    tempEmployee.FirstName = data[4];
+                    tempEmployee.MiddleName = data[6];
+                    tempEmployee.LastName = data[7];
+                    tempEmployee.DateOfBirth = data[18];
                     TempEmployees.Add(tempEmployee);                    
                 }
                 catch (System.Exception x)
                 {
+                    Console.WriteLine("ERROR THROWN!!!!!");
+                    Console.WriteLine("Employee File: " + employeeFile);
+                    Console.WriteLine("Row Count: " + rowCount.ToString());
+                    Console.WriteLine("Row: " + rows[i]);
+                    Console.WriteLine("DOB: " + dobYear.ToString() + "/" + dobMonth.ToString() + "/" + dobDay.ToString());
+                    Console.WriteLine(x.ToString());
                     throw x;
                 }
-
-
-            }               
+            }
             
         }
 

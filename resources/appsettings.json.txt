@@ -1,0 +1,13 @@
+{ 
+    "ConnectionString" : "Data Source=D:\\Shared\\NewPay\\Database\\newpay.db", 
+    "Agency": "GS", 
+    "Action": "Mask", 
+    "PayPeriodEndDate":"07DEC2019", 
+    "EmployeeFile": "D:\\Shared\\NEWPAY\\FilesForMasking\\{0}{1}\\EmployeeImport_{0}{1}.csv", 
+    "MappingDirectory":"D:\\Shared\\NEWPAY\\Config\\", 
+    "FilesForMaskingDirectory" : "D:\\Shared\\NEWPAY\\FilesForMasking\\{0}{1}\\", 
+    "MaskedFilesDirectory" : "D:\\Shared\\NEWPAY\\MaskedFiles\\{0}{1}\\", 
+    "FilesForUnmaskingDirectory" :"D:\\Shared\\NEWPAY\\FilesForUnmasking\\{0}{1}\\", 
+    "UnmaskedFilesDirectory" : "D:\\Shared\\NEWPAY\\UnmaskedFiles\\{0}{1}\\", 
+    "LogDirectory" :"D:\\Shared\\NEWPAY\\Logs\\"
+}

@@ -28,7 +28,7 @@ namespace NewPayDataTransformer.Engine
             {
                 processAgency(Config.Settings.Agency);
             }
-            backupDatabase();
+//            backupDatabase();
         }
 
         private void backupDatabase()
@@ -157,38 +157,8 @@ namespace NewPayDataTransformer.Engine
                 case "LastName":
                     retval = me.LastName;
                     break;  
-                case "Suffix":
-                    retval = me.Suffix;
-                    break;  
-                case "BeneSSN":
-                    retval = me.BeneficiarySSN;
-                    break;
-                case "BeneFullName":
-                    retval = me.BeneficiaryName;
-                    break;
-                case "BeneStreet":
-                    retval = me.BeneficiaryStreetAddress;
-                    break;
-                case "BeneCity":
-                    retval = me.BeneficiaryCity;
-                    break;
-                case "BeneState":
-                    retval = me.BeneficiaryState;
-                    break;
-                case "BeneZip":
-                    retval = me.BeneficiaryZipCode;
-                    break;
-                case "BeneZip2":
-                    retval = me.BeneficiaryZipCode2;
-                    break;
-                case "HBIName":
-                    retval = me.HBIPayeeName;
-                    break;
-                case "HBISSN":
-                    retval = me.HBIPayeeSSN;
-                    break;
                 case "DateOfBirth":
-                    retval = me.DateOfBirth.ToString("mmddyyyy"); //06301974
+                    retval = me.DateOfBirth; //06301974
                     break;
                 case "PreviousSSN":
                     retval = string.Empty;
@@ -207,9 +177,6 @@ namespace NewPayDataTransformer.Engine
                     break;
                 case "ZipCode":
                     retval = me.ZipCode;
-                    break;
-                case "ZipCode2":
-                    retval = me.ZipCode2;
                     break;
                 default:
                     break;

@@ -9,7 +9,7 @@ namespace NewPayDataTransformer.Model
          string LastName { get;  }
          string FirstName { get;  }
          string MiddleName { get;  }
-         DateTime DateOfBirth { get;  }
+         string DateOfBirth { get;  }
          string FullName {get;}  
 
     }

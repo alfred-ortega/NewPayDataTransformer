@@ -6,8 +6,6 @@ namespace NewPayDataTransformer.Model
     {
         public string FullName {get {return string.Format("{0}, {1} {2}",this.LastName,this.FirstName, this.MiddleName ).Trim();}}
 
-        public string FullZipCode { get {return string.Format("{0}-{1}",ZipCode,ZipCode2);}}
-
         public string MockSSN {get {return  "1001" + getMockId(this.Id);}}
 
         public MockEmployee GetMockedEmployee()
@@ -20,13 +18,15 @@ namespace NewPayDataTransformer.Model
             return this.Emplid.CompareTo(other.Emplid);
         }
 
+        public Employee()
+        {}
 
         public Employee(string agency
                        ,string ssn
                        ,string lastName
                        ,string firstName
                        ,string middleName
-                       ,DateTime dateOfBirth
+                       ,string dateOfBirth
                        )
         {
             this.Agency = agency;
@@ -39,7 +39,7 @@ namespace NewPayDataTransformer.Model
         }
 
 
-        private string getMockId(int id)
+        private string getMockId(long id)
         {
             return LPad(id.ToString(),5);
         }        

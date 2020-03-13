@@ -24,9 +24,9 @@ namespace  NewPayDataTransformer.Engine
             addOrUpdateEmployees();
         }
 
-        public List<Employee> GetEmployees(DateTime payPeriodEndDate, string agency)
+        public List<Employee> GetEmployees()
         {
-            return context.Employee.Where(e => e.PayPeriodEndDate == payPeriodEndDate && e.Agency == agency).ToList();
+            return context.Employee.ToList();
 
         }
 
@@ -55,8 +55,7 @@ namespace  NewPayDataTransformer.Engine
             Console.WriteLine(string.Format("There are {0} employees in the db",existingEmployeeCount));
             foreach(TempEmployee newEmployee in newEmployees)
             {
-//                Employee existingEmployee = context.Employee.Where(e => e.EmplId == newEmployee.Ssn).SingleOrDefault();
-                Employee existingEmployee = new Employee();
+                Employee existingEmployee = context.Employee.Where(e => e.Emplid == newEmployee.Emplid).SingleOrDefault();
                 if (existingEmployee==null)//new record
                 {
                     context.Employee.Add(newEmployee.CreateEmployee());
@@ -65,7 +64,7 @@ namespace  NewPayDataTransformer.Engine
                 }
                 else
                 {
-                    //WE DO NOT CHANGE THE SSN
+                    //WE DO NOT CHANGE THE Emplid
                     existingEmployee.Agency = newEmployee.Agency;
                     existingEmployee.LastName = newEmployee.LastName;
                     existingEmployee.FirstName = newEmployee.FirstName;
