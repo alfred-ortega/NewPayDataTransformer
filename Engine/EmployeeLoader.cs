@@ -20,9 +20,6 @@ namespace NewPayDataTransformer.Engine
             for(int i = 1; i < rowCount; i++) // skip header row so we start at 1
             {
                 string[] data = rows[i].Split(",");
-                int dobYear = 0;
-                int dobMonth = 0;
-                int dobDay = 0;
                 try
                 {
                     TempEmployee tempEmployee = new TempEmployee();
@@ -36,12 +33,6 @@ namespace NewPayDataTransformer.Engine
                 }
                 catch (System.Exception x)
                 {
-                    Console.WriteLine("ERROR THROWN!!!!!");
-                    Console.WriteLine("Employee File: " + employeeFile);
-                    Console.WriteLine("Row Count: " + rowCount.ToString());
-                    Console.WriteLine("Row: " + rows[i]);
-                    Console.WriteLine("DOB: " + dobYear.ToString() + "/" + dobMonth.ToString() + "/" + dobDay.ToString());
-                    Console.WriteLine(x.ToString());
                     throw x;
                 }
             }

@@ -1,13 +1,14 @@
-{ 
-    "ConnectionString" : "Data Source=D:\\Shared\\NewPay\\Database\\newpay.db", 
-    "Agency": "GS", 
-    "Action": "Mask", 
-    "PayPeriodEndDate":"07DEC2019", 
-    "EmployeeFile": "D:\\Shared\\NEWPAY\\FilesForMasking\\{0}{1}\\EmployeeImport_{0}{1}.csv", 
-    "MappingDirectory":"D:\\Shared\\NEWPAY\\Config\\", 
-    "FilesForMaskingDirectory" : "D:\\Shared\\NEWPAY\\FilesForMasking\\{0}{1}\\", 
-    "MaskedFilesDirectory" : "D:\\Shared\\NEWPAY\\MaskedFiles\\{0}{1}\\", 
-    "FilesForUnmaskingDirectory" :"D:\\Shared\\NEWPAY\\FilesForUnmasking\\{0}{1}\\", 
-    "UnmaskedFilesDirectory" : "D:\\Shared\\NEWPAY\\UnmaskedFiles\\{0}{1}\\", 
-    "LogDirectory" :"D:\\Shared\\NEWPAY\\Logs\\"
+{
+  "ConnectionString": "Data Source={0}Database\\newpay.data",
+  "Agency": "GS",
+  "Action": "Mask",
+  "PayPeriodEndDate": "07DEC2019",
+  "BaseDirectory": "E:\\Developers\\AlO\\NEWPAY\\",
+  "EmployeeFile": "FilesForMasking\\{0}{1}\\EmployeeImport_{0}{1}.dat",
+  "MappingDirectory": "Config\\",
+  "FilesForMaskingDirectory": "FilesForMasking\\{0}{1}\\",
+  "MaskedFilesDirectory": "MaskedFiles\\{0}{1}\\",
+  "FilesForUnmaskingDirectory": "FilesForUnmasking\\{0}{1}\\",
+  "UnmaskedFilesDirectory": "UnmaskedFiles\\{0}{1}\\",
+  "LogDirectory": "Logs\\"
 }

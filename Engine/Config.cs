@@ -19,7 +19,7 @@ namespace NewPayDataTransformer.Engine
 
         static Config()
         {
-            string json = System.IO.File.ReadAllText(@"D:\Users\alfre\source\repos\GSA\NewPayDataTransformer\appsettings.json");
+            string json = System.IO.File.ReadAllText(@"E:\Developers\AlO\source\repos\NewPayDataTransformer\appsettings.json");
             settings = JsonSerializer.Deserialize<Config>(json);
         }
 
@@ -29,55 +29,72 @@ namespace NewPayDataTransformer.Engine
 
 
         private string employeeFile;
-
+        private string baseDirectory;
         private string mappingDirectory;
         private string filesForMaskingDirectory;
         private string maskedFilesDirectory;
         private string filesForUnmaskingDirectory;
         private string unmaskedFilesDirectory;
-
-        public string ConnectionString { get; set; }
+        private string logDirectory;
+        private string connectionString;
+        public string ConnectionString {
+            get { return string.Format(connectionString, baseDirectory); }
+            set { connectionString = value; }
+        }
         public string Agency { get; set; }
         public string Action { get; set; }
         public string PayPeriodEndDate { get; set; }
         public string EmployeeFile
         {
-            get { return string.Format(employeeFile,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(employeeFile,Agency,PayPeriodEndDate); }
             set { employeeFile = value; }
+        }
+
+        public string BaseDirectory
+        {
+            get { return baseDirectory; }
+            set { baseDirectory = value; }
         }
 
         public string MappingDirectory
         {
-            get { return string.Format(mappingDirectory,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(mappingDirectory,Agency,PayPeriodEndDate); }
             set { mappingDirectory = value; }
         }
         
         public string FilesForMaskingDirectory
         {
-            get { return string.Format(filesForMaskingDirectory,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(filesForMaskingDirectory,Agency,PayPeriodEndDate); }
             set { filesForMaskingDirectory = value; }
         }
 
         public string MaskedFilesDirectory
         {
-            get { return string.Format(maskedFilesDirectory,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(maskedFilesDirectory,Agency,PayPeriodEndDate); }
             set { maskedFilesDirectory = value; }
         }
         
 
         public string FilesForUnmaskingDirectory
         {
-            get { return string.Format(filesForUnmaskingDirectory,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(filesForUnmaskingDirectory,Agency,PayPeriodEndDate); }
             set { filesForUnmaskingDirectory = value; }
         }
         
         public string UnmaskedFilesDirectory
         {
-            get { return string.Format(unmaskedFilesDirectory,Agency,PayPeriodEndDate); }
+            get { return baseDirectory + string.Format(unmaskedFilesDirectory,Agency,PayPeriodEndDate); }
             set { unmaskedFilesDirectory = value; }
         }
 
-        public string LogDirectory {get ; set;}
+        public string LogDirectory { get 
+            {
+                return baseDirectory + logDirectory;
+            }
+            set {
+                logDirectory = value;
+            } 
+        }
         
         
 
