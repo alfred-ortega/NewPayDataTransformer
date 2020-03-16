@@ -23,12 +23,12 @@ namespace NewPayDataTransformer.Engine
                 try
                 {
                     TempEmployee tempEmployee = new TempEmployee();
-                    tempEmployee.Emplid = data[3];
-                    tempEmployee.Agency = data[1];
-                    tempEmployee.FirstName = data[4];
-                    tempEmployee.MiddleName = data[6];
-                    tempEmployee.LastName = data[7];
-                    tempEmployee.DateOfBirth = data[18];
+                    tempEmployee.Emplid = data[1];
+                    tempEmployee.Agency = Config.Settings.Agency;
+                    tempEmployee.FirstName = data[2];
+                    tempEmployee.MiddleName = data[4];
+                    tempEmployee.LastName = data[5];
+                    tempEmployee.DateOfBirth = data[14];
                     TempEmployees.Add(tempEmployee);                    
                 }
                 catch (System.Exception x)

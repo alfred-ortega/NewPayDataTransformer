@@ -28,15 +28,15 @@ namespace NewPayDataTransformer.Engine
             {
                 processAgency(Config.Settings.Agency);
             }
-//            backupDatabase();
+            backupDatabase();
         }
 
         private void backupDatabase()
         {
             Logger.Log.Record("Beginning Database Backup");
-            string dbName = Config.Settings.ConnectionString.Replace("Data Source=",""); //"Data Source=D:\\Shared\\NEWPAY\\Database\\newpay.db
+            string dbName = Config.Settings.ConnectionString.Replace("Data Source=",""); //"Data Source=D:\\Shared\\NEWPAY\\Database\\newpay.data
             string newDbName = string.Format(dbName.Substring(0,dbName.LastIndexOf(".")));
-            newDbName += "_" + Config.Settings.PayPeriodEndDate + ".db";
+            newDbName += "_" + Config.Settings.PayPeriodEndDate + ".data";
             Console.WriteLine(newDbName);
             Logger.Log.Record(string.Format("{0} being backed up as {1}",dbName,newDbName));
             File.Copy(dbName,newDbName,true);
@@ -47,7 +47,7 @@ namespace NewPayDataTransformer.Engine
         {
                 Config.Settings.Agency = agency;
                 Logger.Log.Record("Beginning process of Agency: " + Config.Settings.Agency);
-                loadEmployees();
+//                loadEmployees();
                 loadUpdatedEmployees();
                 loadMappingFiles();
                 mockupFiles();
@@ -84,7 +84,7 @@ namespace NewPayDataTransformer.Engine
         private void loadMappingFiles()
         {
             maps = new List<Map>();
-            string[] mappingFiles = Directory.GetFiles(Config.Settings.MappingDirectory);
+            string[] mappingFiles = Directory.GetFiles(Config.Settings.MappingDirectory,"*.json");
             MapLoader ml = new MapLoader();
             foreach(var mappingFile in mappingFiles)
             {
@@ -114,7 +114,7 @@ namespace NewPayDataTransformer.Engine
                     {
                         string[] data = rows[i].Split("\",\"");
                         lastColumnNumber = data.Length - 1;
-                        string emplId = data[3];
+                        string emplId = data[1];
                         MockEmployee me = mockEmployeeDb.GetMockEmployee(emplId);
                         foreach (Column c in map.Columns)
                         {
