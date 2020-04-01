@@ -28,7 +28,7 @@ namespace NewPayDataTransformer.Model
 
         public MockEmployee(Employee employee)
         {
-            setInitValues(this.LPad(employee.Id.ToString(),5), employee.Agency, employee.DateOfBirth);
+            setInitValues( this.LPad(employee.Id.ToString(),5), employee.Agency, employee.DateOfBirth);
         }
 
         public MockEmployee(string ssn)
@@ -41,13 +41,13 @@ namespace NewPayDataTransformer.Model
         public void setInitValues(string mockId, string agency, string dateOfBirth)
         {
             this.Agency = agency;
-            this.Emplid = LPad(mockId,8);
+            this.Emplid = mockId;
             this.Ssn = "1001" + mockId;
             this.DateOfBirth = dateOfBirth; 
             this.LastName = "BAINES" + mockId;
             this.FirstName = "ROBERT";
             this.MiddleName = string.Empty;
-            this.StreetAddress = string.Format("1{0} Mockingbird Lane",mockId);
+            this.StreetAddress = string.Format("1{0} Fake Street Address Here",mockId);
             this.StreetAddress2 = string.Empty;
             this.City = "KANSAS CITY";
             this.State = "MO";

@@ -8,6 +8,8 @@ namespace NewPayDataTransformer.Model
 
         public string MockSSN {get {return  "1001" + getMockId(this.Id);}}
 
+        public string MockEmplId { get { return this.Id.ToString(); } }
+
         public MockEmployee GetMockedEmployee()
         {
             return new MockEmployee(this);
