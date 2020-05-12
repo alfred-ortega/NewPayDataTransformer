@@ -7,6 +7,8 @@ namespace NewPayDataTransformer.Model
     {
         private string fileToMap;
 
+        public int EmployeeIdColumn { get; set; }
+
         public string Action { get; set; }
         public string FileToMap { 
             get {return string.Format(fileToMap,Config.Settings.Agency,Config.Settings.PayPeriodEndDate);} 

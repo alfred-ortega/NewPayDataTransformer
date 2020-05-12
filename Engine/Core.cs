@@ -28,7 +28,7 @@ namespace NewPayDataTransformer.Engine
             {
                 processAgency(Config.Settings.Agency);
             }
-            backupDatabase();
+//            backupDatabase();
         }
 
         private void backupDatabase()
@@ -106,15 +106,18 @@ namespace NewPayDataTransformer.Engine
                     destinationFile = Config.Settings.MaskedFilesDirectory + map.FileToMap;
                     Console.WriteLine(string.Format("{0} is being masked into {1}",sourceFile,destinationFile));
                     string[] rows = File.ReadAllLines(sourceFile);
+
                     string header = rows[0];
                     sb.AppendLine(header);
                     int rowCount = rows.Length;
+                    Console.WriteLine(string.Format("\t{0} rows in file ", rowCount));
                     int lastColumnNumber = 0;
                     for (int i = 1; i < rowCount; i++)
                     {
                         string[] data = rows[i].Split("\",\"");
                         lastColumnNumber = data.Length - 1;
-                        string emplId = data[1];
+                        string emplId = data[map.EmployeeIdColumn].Replace("\"",string.Empty);
+
                         MockEmployee me = mockEmployeeDb.GetMockEmployee(emplId);
                         foreach (Column c in map.Columns)
                         {
@@ -127,6 +130,8 @@ namespace NewPayDataTransformer.Engine
                         }
 
                         string newRow = string.Empty;
+                        if (map.EmployeeIdColumn == 0)
+                            newRow = "\"";
                         for (int j = 0; j < data.Length; j++)
                         {
                             newRow += (data[j] + "\",\"");
@@ -140,7 +145,9 @@ namespace NewPayDataTransformer.Engine
                         {
                             sb.AppendLine(newRow.Substring(0, newRow.Length - 3));
                         }
-                        
+
+                        if (i % 100 == 0)
+                            Console.WriteLine(string.Format("{0} of {1} Processed ", i, rowCount));
 
                     }
                     File.WriteAllText(destinationFile,sb.ToString());
@@ -198,6 +205,12 @@ namespace NewPayDataTransformer.Engine
                     break;
                 case "ZipCode":
                     retval = me.ZipCode;
+                    break;
+                case "RoutingNumber":
+                    retval = "054001220";
+                    break;
+                case "BankName":
+                    retval = "Baker Street Bank and Trust";
                     break;
                 case "County":
                     //retval = me.County;
