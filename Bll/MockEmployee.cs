@@ -20,6 +20,8 @@ namespace NewPayDataTransformer.Model
         public string Ssn { get; set; }
         public string County { get; set; }
 
+        public string LegacyEmploymentNumber { get; set; }
+
 
 
         public string FullName {get {return string.Format("{0}, {1} {2}",this.LastName,this.FirstName, this.MiddleName ).Trim();}}
@@ -28,7 +30,7 @@ namespace NewPayDataTransformer.Model
 
         public MockEmployee(Employee employee)
         {
-            setInitValues( this.LPad(employee.Id.ToString(),5), employee.Agency, employee.DateOfBirth);
+            setInitValues( this.LPad(employee.Id.ToString(),5), employee.Agency, employee.DateOfBirth, this.LPad(employee.Id.ToString(),8));
         }
 
         public MockEmployee(string ssn)
@@ -38,12 +40,12 @@ namespace NewPayDataTransformer.Model
         }
 
 
-        public void setInitValues(string mockId, string agency, string dateOfBirth)
+        public void setInitValues(string mockId, string agency, string dateOfBirth, string mockLegacyEmploymentNumber)
         {
             this.Agency = agency;
             this.Emplid = mockId;
             this.Ssn = "1001" + mockId;
-            this.DateOfBirth = dateOfBirth; 
+            this.DateOfBirth = getDateOfBirth(dateOfBirth); 
             this.LastName = "BAINES" + mockId;
             this.FirstName = "ROBERT";
             this.MiddleName = string.Empty;
@@ -52,9 +54,15 @@ namespace NewPayDataTransformer.Model
             this.City = "KANSAS CITY";
             this.State = "MO";
             this.ZipCode = "64108";
+            this.LegacyEmploymentNumber = mockLegacyEmploymentNumber;
 
         }
 
+        private string getDateOfBirth(string dateOfBirth)
+        {
+            string retval = dateOfBirth.Substring(0, 4) + "0720";
+            return retval;
+        }
 
         
     }//end class

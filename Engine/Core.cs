@@ -99,22 +99,26 @@ namespace NewPayDataTransformer.Engine
                 string sourceFile = string.Empty;
                 string destinationFile = string.Empty;
                 StringBuilder sb = new StringBuilder();
+                StringBuilder commaText = new StringBuilder();
                 foreach(var map in maps)
                 {
                     bool isLastColumnMasked = false;
+                    bool isFirstColumnMasked = false;
                     sourceFile = Config.Settings.FilesForMaskingDirectory + map.FileToMap;
                     destinationFile = Config.Settings.MaskedFilesDirectory + map.FileToMap;
                     Console.WriteLine(string.Format("{0} is being masked into {1}",sourceFile,destinationFile));
                     string[] rows = File.ReadAllLines(sourceFile);
 
                     string header = rows[0];
+                    string commaHeader = rows[0].Replace("|", ",");
                     sb.AppendLine(header);
+                    commaText.AppendLine(commaHeader);
                     int rowCount = rows.Length;
                     Console.WriteLine(string.Format("\t{0} rows in file ", rowCount));
                     int lastColumnNumber = 0;
                     for (int i = 1; i < rowCount; i++)
                     {
-                        string[] data = rows[i].Split("\",\"");
+                        string[] data = rows[i].Split("\"|\"");  //string[] data = rows[i].Split("\",\""); Change comma to pipe
                         lastColumnNumber = data.Length - 1;
                         string emplId = data[map.EmployeeIdColumn].Replace("\"",string.Empty);
 
@@ -126,24 +130,34 @@ namespace NewPayDataTransformer.Engine
                                 isLastColumnMasked = true;
                             }
 
+                            if (c.Position == 0)
+                            {
+                                isFirstColumnMasked = true;
+                            }
+
                             data[c.Position] = Swap(c, me);
                         }
 
                         string newRow = string.Empty;
-                        if (map.EmployeeIdColumn == 0)
+                        if (map.EmployeeIdColumn == 0 || isFirstColumnMasked)
                             newRow = "\"";
+
                         for (int j = 0; j < data.Length; j++)
                         {
-                            newRow += (data[j] + "\",\"");
+                            newRow += (data[j] + "\"|\""); // newRow += (data[j] + "\",\""); Change comma to pipe
                         }
 
                         if (isLastColumnMasked)
                         {
-                            sb.AppendLine(newRow.Substring(0, newRow.Length - 2));
+                            string line = newRow.Substring(0, newRow.Length - 2);
+                            sb.AppendLine(line);
+                            commaText.AppendLine(line.Replace("|", ","));
                         }
                         else
                         {
-                            sb.AppendLine(newRow.Substring(0, newRow.Length - 3));
+                            string line = newRow.Substring(0, newRow.Length - 3);
+                            sb.AppendLine(line);
+                            commaText.AppendLine(line.Replace("|", ","));
                         }
 
                         if (i % 100 == 0)
@@ -151,7 +165,9 @@ namespace NewPayDataTransformer.Engine
 
                     }
                     File.WriteAllText(destinationFile,sb.ToString());
+                    File.WriteAllText(destinationFile + ".txt", commaText.ToString());
                     sb.Clear();
+                    commaText.Clear();
                 }
             }
             catch (System.Exception x)
@@ -206,6 +222,9 @@ namespace NewPayDataTransformer.Engine
                 case "ZipCode":
                     retval = me.ZipCode;
                     break;
+                case "ZipCode2":
+                    retval = string.Empty;
+                    break;
                 case "RoutingNumber":
                     retval = "054001220";
                     break;
@@ -214,6 +233,12 @@ namespace NewPayDataTransformer.Engine
                     break;
                 case "County":
                     //retval = me.County;
+                    break;
+                case "LegacyEmploymentNumber":
+                    retval = me.LegacyEmploymentNumber;
+                    break;
+                case "EMPTY":
+                    retval = string.Empty;
                     break;
                 default:
                     break;
